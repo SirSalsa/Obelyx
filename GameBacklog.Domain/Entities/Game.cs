@@ -5,11 +5,11 @@ namespace GameBacklog.Domain.Entities
     public class Game
     {
         // Required Info
-        public Guid Id { get; set; }
-        public string Title { get; set; }
+        public required Guid Id { get; set; }
+        public required string Title { get; set; }
 
         // Optional Info
-        public string? ImagePath { get; set; }
+        public string? ImagePath { get; set; } = null;
         public int? ReleaseYear { get; set; }
 
         // Backlog Related
@@ -21,5 +21,7 @@ namespace GameBacklog.Domain.Entities
 
         // TODO:
         // Optional Info - Platform, Genre(s)
+        //
+        // Backlog Related - Notes
     }
 }
