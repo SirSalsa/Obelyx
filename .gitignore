@@ -1,0 +1,94 @@
+# Build results
+[Bb]in/
+[Oo]bj/
+[Ll]og/
+[Ll]ogs/
+
+# Visual Studio cache/options
+.vs/
+.vscode/
+
+# Rider
+.idea/
+
+# User-specific files
+*.user
+*.userosscache
+*.suo
+*.sln.docstates
+
+# Auto-generated files
+*.Generated.*
+*.g.cs
+*.g.i.cs
+*_i.c
+*_p.c
+*.ilk
+*.meta
+*.obj
+*.pch
+*.pdb
+*.pgc
+*.pgd
+*.rsp
+*.sbr
+*.tlb
+*.tli
+*.tlh
+*.tmp
+*.tmp_proj
+*.log
+*.vspscc
+*_i.asm
+*_p.asm
+*.cachefile
+
+# ASP.NET
+project.lock.json
+project.fragment.lock.json
+artifacts/
+
+# NuGet
+*.nupkg
+*.snupkg
+*.nuspec
+*.psmdcp
+*.nuget.props
+*.nuget.targets
+*.lock.json
+.nuget/
+
+# Entity Framework Core
+Migrations/
+
+# Publish
+publish/
+*.Publish.xml
+
+# Others
+*.dbmdl
+*.bak
+*.bak2
+*.Backup
+*.db
+*.mdf
+*.ldf
+
+# Resharper
+_ReSharper*/
+*.[Rr]e[Ss]harper
+
+# dotCover
+*.dotCover
+
+# Tye
+.tye/
+
+# Dotnet tools
+.dotnet-tools.json
+
+# Temp
+*.swp
+*.swo
+*.tmp
+*.temp
