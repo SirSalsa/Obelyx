@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace GameBacklog.Domain.Models
+namespace GameBacklog.Core.Models
 {
     /// <summary>
     /// Update an existing game in the database.

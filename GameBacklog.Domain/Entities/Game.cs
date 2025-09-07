@@ -1,8 +1,8 @@
-﻿using GameBacklog.Domain.Enums;
+﻿using GameBacklog.Core.Enums;
 
-namespace GameBacklog.Domain.Entities
+namespace GameBacklog.Core.Entities
 {
-    public class Game
+    public sealed class Game
     {
         // Required Info
         public required Guid Id { get; set; }

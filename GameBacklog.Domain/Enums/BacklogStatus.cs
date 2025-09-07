@@ -1,4 +1,4 @@
-﻿namespace GameBacklog.Domain.Enums
+﻿namespace GameBacklog.Core.Enums
 {
     public enum BacklogStatus
     {

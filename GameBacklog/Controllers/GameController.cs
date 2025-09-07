@@ -1,5 +1,5 @@
-﻿using GameBacklog.Domain.Entities;
-using GameBacklog.Domain.Models;
+﻿using GameBacklog.Core.Entities;
+using GameBacklog.Core.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GameBacklog.API.Controllers

@@ -58,9 +58,6 @@ artifacts/
 *.lock.json
 .nuget/
 
-# Entity Framework Core
-Migrations/
-
 # Publish
 publish/
 *.Publish.xml
