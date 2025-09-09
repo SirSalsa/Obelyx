@@ -1,5 +1,6 @@
 using System.Reflection;
 using GameBacklog.Data;
+using GameBacklog.Data.Services;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -8,6 +9,7 @@ builder.Services.AddDbContext<AppDbContext>(opts =>
     opts.UseSqlServer(builder.Configuration.GetConnectionString("SqlServer")));
 
 // Add services to the container.
+builder.Services.AddScoped<IGameService, GameService>();
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
