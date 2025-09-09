@@ -7,7 +7,7 @@ namespace GameBacklog.Data.Services
     {
         Task<Game> CreateGameAsync(string title);
         Task<Game?> GetGameAsync(Guid guid);
-        Task<IEnumerable<Game>> GetGamesAsync(int amount);
+        Task<IEnumerable<Game>> GetGamesAsync(GamesGetRequest gamesGetRequest);
         Task<Game> UpdateGameEntryAsync(GameUpdateRequest request);
         Task<bool> DeleteGameAsync(string guid);
     }

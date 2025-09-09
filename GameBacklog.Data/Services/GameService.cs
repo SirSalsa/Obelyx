@@ -1,6 +1,7 @@
 ﻿using GameBacklog.Core.Entities;
 using GameBacklog.Core.Models;
 using Microsoft.EntityFrameworkCore;
+using System.Linq;
 
 namespace GameBacklog.Data.Services
 {
@@ -35,9 +36,18 @@ namespace GameBacklog.Data.Services
             return game;
         }
 
-        public Task<IEnumerable<Game>> GetGamesAsync(int amount)
+        public async Task<IEnumerable<Game>> GetGamesAsync(GamesGetRequest request)
         {
-            throw new NotImplementedException();
+            // TODO: Add possible alternate ways to order based on object in request model
+
+            // Pick out a specified part of the collection
+            var games = await _appDbContext.Games
+                .OrderBy(g => g.Title)
+                .Skip(request.Page - 1)
+                .Take(request.PageSize)
+                .ToListAsync();
+
+            return games;
         }
 
         public Task<Game> UpdateGameEntryAsync(GameUpdateRequest request)

@@ -31,11 +31,10 @@ namespace GameBacklog.API.Controllers
         }
 
         [HttpGet]
+        [Route("{guid:guid}")]
         public async Task<IActionResult> GetGame(string guid)
         {
-            Guid parsedGuid;
-
-            if (string.IsNullOrEmpty(guid) || !Guid.TryParse(guid, out parsedGuid))
+            if (string.IsNullOrEmpty(guid) || !Guid.TryParse(guid, out var parsedGuid))
             {
                 return BadRequest("Guid is empty or invalid.");
             }
@@ -44,7 +43,7 @@ namespace GameBacklog.API.Controllers
 
             if (game == null)
             {
-                return BadRequest("Failed to find a matching game.");
+                return NotFound($"Game with id {parsedGuid} not found.");
             }
 
             return Ok(game);
@@ -52,11 +51,13 @@ namespace GameBacklog.API.Controllers
 
         [HttpGet]
         [Route("Interval")]
-        public IActionResult GetGames([FromBody] int amount)
+        public async Task<IActionResult> GetGames([FromQuery] GamesGetRequest getModel)
         {
             // TODO: Might need another endpoint to stream game images
 
-            return Ok();
+            var games = await _gameService.GetGamesAsync(getModel);
+
+            return Ok(games);
         }
 
         /// <summary>
