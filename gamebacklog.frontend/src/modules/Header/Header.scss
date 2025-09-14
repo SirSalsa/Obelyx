@@ -2,6 +2,53 @@
 
 header {
     display: grid;
-    grid-column: 1 / 4;
+    grid-template-columns: 1fr 3fr 1fr; // Left | Center | Right
+    align-items: center;
+    justify-items: center;
+    grid-column: 1 / -1;
     grid-row: 1 / 2;
+    height: 60px;
+    background-color: $color-bg-light; // Use a lighter background
+    border-radius: 8px 8px 0 0;
+
+    .Header_Wrapper {
+        grid-column: 2; // Center column
+        display: grid;
+        grid-template-columns: 1fr 3fr 1fr; // Left | Center | Right
+        align-items: center;
+        background: $color-bg-light;
+        border-radius: 8px;
+        height: 100%;
+        width: 100%;
+    }
+
+    .Header_Logo {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        img {
+            width: 40px;
+            height: auto;
+        }
+    }
+
+    .Header_Container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+
+        p {
+            margin: 0 15px;
+            cursor: pointer;
+            font-size: 1.2rem;
+            font-weight: 500;
+            color: rgba(255, 255, 255, 0.87);
+
+            &:hover {
+                color: hotpink;
+            }
+        }
+    }
 }
