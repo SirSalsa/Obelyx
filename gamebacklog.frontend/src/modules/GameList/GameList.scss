@@ -5,7 +5,7 @@ main {
     grid-column: 2 / 3;
     grid-row: 2 / 3;
 
-    grid-template-columns: 1fr 3fr; // Left - sidebar and right - game list
+    grid-template-columns: 1fr 4fr; // Left - sidebar and right - game list
 }
 
 .Sidebar {
@@ -27,9 +27,28 @@ main {
         text-align: center;
     }
 
-    .GameContainer {
+    .GameGallery {
         display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
         gap: 1rem;
+
+        .GameCard {
+            padding: 1rem 2rem;
+            display: flex;
+            flex-direction: column;
+
+            img {
+                max-width: 100%;
+                height: auto;
+                border-radius: 3px;
+            }
+
+            h3 {
+                margin: 0.5rem 0 0.5rem 0;
+                align-self: center;
+                font-weight: 400;
+                font-size: 1rem;
+            }
+        }
     }
 }

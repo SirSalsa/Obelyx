@@ -1,5 +1,6 @@
 import './GameList.scss';
 import test from '../../assets/test.jpg';
+import GameCard from './GameCard';
 
 function GameList() {
   return (
@@ -30,21 +31,26 @@ function GameList() {
                 Rolled Credits
                 <input type="checkbox" />
             </label>
+            <div id="ScoreFilter">
+                <label>Score</label>
+                <input type="range" min="0" max="10" />
+            </div>
+            <hr />
             <button>Clear Filters</button>
             <button>Search</button>
         </div>
         {/* Right side */}
         <div className="GameList">
           <h2>My Games</h2>
-          <div className="GameContainer">
+          <div className="GameGallery">
             {/* Example Game Item */}
-            <img src={test} alt="Game Title" />
-            <img src={test} alt="Game Title" />
-            <img src={test} alt="Game Title" />
-            <img src={test} alt="Game Title" />
-            <img src={test} alt="Game Title" />
-            <img src={test} alt="Game Title" />
-            <img src={test} alt="Game Title" />
+            <GameCard title="The wonderous adventures of baby dragon and his friends 2: Electric boogaloo" imgSrc={test} />
+            <GameCard title="Game Title" imgSrc={test} />
+            <GameCard title="Game Title" imgSrc={test} />
+            <GameCard title="Game Title" imgSrc={test} />
+            <GameCard title="Game Title" imgSrc={test} />
+            <GameCard title="Game Title" imgSrc={test} />
+            <GameCard title="Game Title" imgSrc={test} />
           </div>
         </div>
     </main>
