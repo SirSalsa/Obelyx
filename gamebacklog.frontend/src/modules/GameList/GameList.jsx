@@ -9,8 +9,8 @@ function GameList() {
         <div className="Sidebar">
             <h2>Filters</h2>
             <input type="text" placeholder="Game Title..." />
-            <h4>Status</h4>
             <select name="status" id="status">
+                <option value="" disabled selected>Status</option>
                 <option value="all">All</option>
                 <option value="wishlist">Wishlist</option>
                 <option value="planned">Planned</option>
@@ -19,25 +19,35 @@ function GameList() {
                 <option value="completed">Completed</option>
                 <option value="dropped">Dropped</option>
             </select>
-            <h4>Sort By</h4>
             <select name="sort" id="sort">
+                <option value="" disabled selected>Sort By</option>
                 <option value="title">Title</option>
                 <option value="release-date">Release Date</option>
                 <option value="rating">Rating</option>
                 <option value="time-played">Time Played</option>
             </select>
-            <h3>Advanced Filters</h3>
+            <h4>Advanced Filters</h4>
             <label>
-                Rolled Credits
                 <input type="checkbox" />
+                Rolled Credits
+            </label>
+            <label>
+                <input type="checkbox" />
+                Favorites Only
+            </label>
+            <label>
+                <input type="checkbox" />
+                Completed 100%
             </label>
             <div id="ScoreFilter">
                 <label>Score</label>
                 <input type="range" min="0" max="10" />
             </div>
             <hr />
-            <button>Clear Filters</button>
-            <button>Search</button>
+            <div className="ButtonGroup">
+                <button>Clear Filters</button>
+                <button>Search</button>
+            </div>
         </div>
         {/* Right side */}
         <div className="GameList">
