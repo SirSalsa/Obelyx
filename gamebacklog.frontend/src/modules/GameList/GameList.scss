@@ -1,4 +1,5 @@
 @use "../../base.scss" as *;
+@use "sass:color";
 
 main {
     display: grid;
@@ -26,19 +27,23 @@ main {
     input[type="text"] {
         width: 100%;
         padding: 0.5rem;
-        border: 1px solid #ccc; // Neutral border
+        border: 1px solid $color-border;
         border-radius: 4px;
         font-size: 1rem;
         box-sizing: border-box; // Include padding and border in width calculation
+        background-color: $color-surface;
+        color: $color-text-primary;
     }
 
     select {
         width: 100%;
         padding: 0.5rem;
-        border: 1px solid #ccc; // Neutral border
+        border: none;
         border-radius: 4px;
         font-size: 1rem;
         box-sizing: border-box; // Ensure consistent width
+        background-color: $color-surface;
+        color: $color-text-primary;
     }
 
     label {
@@ -46,10 +51,20 @@ main {
         display: flex;
         align-items: center;
         gap: 0.5rem; // Add spacing between label text and input
+        color: $color-text-secondary;
     }
 
     input[type="checkbox"] {
         transform: scale(1.2); // Slightly enlarge checkboxes for better usability
+        accent-color: $color-primary;
+
+        &:hover {
+            box-shadow: 0 0 0 2px rgba($color-primary, 0.3);
+        }
+    }
+
+    input[type="range"] {
+        accent-color: $color-primary;
     }
 
     #ScoreFilter {
@@ -66,7 +81,7 @@ main {
     hr {
         width: 100%;
         border: none;
-        border-top: 1px solid #ccc; // Neutral divider
+        border-top: 1px solid $color-border; // Neutral divider
         margin: 1rem 0;
     }
 
@@ -75,20 +90,36 @@ main {
         justify-content: space-between; // Space buttons evenly
         gap: 1rem; // Add spacing between buttons
         width: 100%; // Ensure buttons take up full width
-    }
 
-    button {
-        flex: 1; // Make buttons equal in size
-        padding: 0.75rem;
-        font-size: 1rem;
-        border: 1px solid #ccc; // Neutral border
-        border-radius: 4px;
-        background: none; // Transparent background for now
-        cursor: pointer;
-        transition: transform 0.2s;
+        button {
+            flex: 1; // Make buttons equal in size
+            padding: 0.75rem;
+            font-size: 1rem;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.25s ease, box-shadow 0.25s ease; // Smooth transition for background and shadow
+        }
 
-        &:hover {
-            transform: scale(1.02); // Slight zoom effect on hover
+        #clear-filters {
+            border: 1px solid $color-border; // Border for "Clear Filters"
+            background-color: transparent; // Secondary color for "Clear Filters"
+            color: $color-text-secondary;
+
+            &:hover {
+                background-color: color.adjust($color-secondary, $lightness: 10%);
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            }
+        }
+
+        #search {
+            border: none;
+            background-color: $color-primary; // Primary color for "Search"
+            color: $color-text-primary;
+
+            &:hover {
+                background-color: color.adjust($color-primary, $lightness: 10%);
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); // Subtle shadow on hover
+            }
         }
     }
 }

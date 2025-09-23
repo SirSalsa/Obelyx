@@ -45,8 +45,8 @@ function GameList() {
             </div>
             <hr />
             <div className="ButtonGroup">
-                <button>Clear Filters</button>
-                <button>Search</button>
+                <button id="clear-filters">Clear Filters</button>
+                <button id="search">Search</button>
             </div>
         </div>
         {/* Right side */}

@@ -1,14 +1,44 @@
-// Colors
-$color-bg-light: #333333;
-$color-bg-dark: #242424;
+// ==========================
+// Theme Variables (default theme)
+// ==========================
+
+// Backgrounds
+$color-background: #242424;
+$color-surface: #2c2c2c;
+
+// Text
+$color-text-primary: #ffffff;
+$color-text-secondary: #a0a0a0;
+
+// Borders / Dividers
+$color-border: #3a3a3a;
+
+// Accents
+$color-primary: #3b82f6;     // main accent
+$color-secondary: #f59e0b;   // optional accent
+
+// States
+$color-success: #10b981;
+$color-warning: #fbbf24;
+$color-error: #ef4444;
+
+// Typography
+$font-family-base: system-ui, Avenir, Helvetica, Arial, sans-serif;
+$line-height-base: 1.5;
+$font-weight-normal: 400;
+$font-weight-bold: 600;
+
+// ==========================
+// Global Styles
+// ==========================
 
 body {
   height: 100%;
   margin: 0;
   padding: 0;
-  background-color: $color-bg-dark; // your dark background
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
-  color: rgba(255, 255, 255, 0.87);
+  background-color: $color-background;
+  font-family: $font-family-base;
+  line-height: $line-height-base;
+  font-weight: $font-weight-normal;
+  color: $color-text-primary;
 }

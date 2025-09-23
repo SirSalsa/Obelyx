@@ -8,14 +8,14 @@ header {
     grid-column: 1 / -1;
     grid-row: 1 / 2;
     height: 60px;
-    background-color: $color-bg-light; // Use a lighter background
+    background-color: $color-surface;
 
     .Header_Wrapper {
         grid-column: 2; // Center column
         display: grid;
         grid-template-columns: 1fr 3fr 1fr; // Left | Center | Right
         align-items: center;
-        background: $color-bg-light;
+        background: $color-surface;
         height: 100%;
         width: 100%;
     }
