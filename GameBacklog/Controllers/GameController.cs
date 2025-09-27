@@ -1,8 +1,6 @@
-﻿using GameBacklog.Core.Entities;
-using GameBacklog.Core.Models;
+﻿using GameBacklog.Core.Models;
 using GameBacklog.Data.Services;
 using Microsoft.AspNetCore.Mvc;
-using System.Threading.Tasks;
 
 namespace GameBacklog.API.Controllers
 {
@@ -42,6 +40,11 @@ namespace GameBacklog.API.Controllers
             return Ok(createdGame);
         }
 
+        /// <summary>
+        /// Get the corresponding game entry.
+        /// </summary>
+        /// <param name="guid"></param>
+        /// <returns></returns>
         [HttpGet]
         [Route("{guid:guid}")]
         public async Task<IActionResult> GetGame(string guid)
@@ -61,12 +64,15 @@ namespace GameBacklog.API.Controllers
             return Ok(game);
         }
 
+        /// <summary>
+        /// Get a batched list of game entries.
+        /// </summary>
+        /// <param name="getModel"></param>
+        /// <returns></returns>
         [HttpGet]
         [Route("Interval")]
         public async Task<IActionResult> GetGames([FromQuery] GamesGetRequest getModel)
         {
-            // TODO: Might need another endpoint to stream game images
-
             var games = await _gameService.GetGamesAsync(getModel);
 
             return Ok(games);
@@ -76,9 +82,16 @@ namespace GameBacklog.API.Controllers
         /// Update the metadata of the game entry.
         /// </summary>
         [HttpPut]
-        public IActionResult UpdateLogEntry([FromBody] GameUpdateRequest updateModel)
+        public async Task<IActionResult> UpdateLogEntry([FromBody] GameUpdateRequest updateModel)
         {
-            return Ok();
+            if (string.IsNullOrEmpty(updateModel.Id))
+            {
+                return BadRequest("Id is empty or invalid.");
+            }
+
+            var game = await _gameService.UpdateGameAsync(updateModel);
+
+            return Ok(game);
         }
 
         /// <summary>
@@ -103,5 +116,7 @@ namespace GameBacklog.API.Controllers
 
             return Ok();
         }
+
+        // TODO: Endpoint to remove orphan images / imagepaths
     }
 }

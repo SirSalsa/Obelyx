@@ -1,8 +1,8 @@
 ﻿using GameBacklog.Core.Entities;
+using GameBacklog.Core.Enums;
 using GameBacklog.Core.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
-using System.Linq;
 
 namespace GameBacklog.Data.Services
 {
@@ -51,9 +51,32 @@ namespace GameBacklog.Data.Services
             return games;
         }
 
-        public Task<Game> UpdateGameEntryAsync(GameUpdateRequest request)
+        public async Task<Game> UpdateGameAsync(GameUpdateRequest request)
         {
-            throw new NotImplementedException();
+            var translatedGuid = Guid.Parse(request.Id);
+
+            var game = await _appDbContext.Games.FirstOrDefaultAsync(g => g.Id == translatedGuid);
+
+            if (game == null)
+            {
+                throw new KeyNotFoundException($"Game with id {translatedGuid} not found.");
+            }
+
+            // Update game entry based on what is not null
+            game.Title = string.IsNullOrEmpty(request.Title) ? game.Title : request.Title;
+            game.ReleaseYear = request.ReleaseYear ?? game.ReleaseYear;
+            game.Score = request.Score ?? game.Score;
+            game.HoursPlayed = request.HoursPlayed ?? game.HoursPlayed;
+            game.BacklogStatus = string.IsNullOrEmpty(request.BacklogStatus)
+                ? game.BacklogStatus
+                : Enum.Parse<BacklogStatus>(request.BacklogStatus);
+
+            game.RolledCredits = request.RolledCredits; // always has a value
+
+            _appDbContext.Games.Update(game);
+            await _appDbContext.SaveChangesAsync();
+
+            return game;
         }
 
         public async Task<bool> DeleteGameAsync(Guid guid)
