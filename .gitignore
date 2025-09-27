@@ -91,4 +91,4 @@ _ReSharper*/
 *.temp
 
 # Ignore uploaded cover images
-wwwroot/images/covers/
+GameBacklog/wwwroot/images/covers/
