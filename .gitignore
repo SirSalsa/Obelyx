@@ -89,3 +89,6 @@ _ReSharper*/
 *.swo
 *.tmp
 *.temp
+
+# Ignore uploaded cover images
+wwwroot/images/covers/

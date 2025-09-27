@@ -1,5 +1,6 @@
 ﻿using GameBacklog.Core.Entities;
 using GameBacklog.Core.Models;
+using Microsoft.AspNetCore.Http;
 
 namespace GameBacklog.Data.Services
 {
@@ -10,5 +11,6 @@ namespace GameBacklog.Data.Services
         Task<IEnumerable<Game>> GetGamesAsync(GamesGetRequest gamesGetRequest);
         Task<Game> UpdateGameEntryAsync(GameUpdateRequest request);
         Task<bool> DeleteGameAsync(Guid guid);
+        Task<Game> UpdateCoverAsync(Guid id, IFormFile coverImage);
     }
 }

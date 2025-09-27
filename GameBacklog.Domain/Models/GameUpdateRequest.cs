@@ -1,18 +1,15 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace GameBacklog.Core.Models
+﻿namespace GameBacklog.Core.Models
 {
     /// <summary>
     /// Update an existing game in the database.
     /// </summary>
     public class GameUpdateRequest
     {
-        [Required]
-        public Guid Id { get; set; }
+        public required string Id { get; set; }
 
-        [Required]
-        public string Status { get; set; } = string.Empty;
-
+        public string? Title { get; set; }
+        public int? ReleaseYear { get; set; }
+        public string BacklogStatus { get; set; } = string.Empty;
         public int? Score { get; set; }
         public int? HoursPlayed { get; set; }
         public bool RolledCredits { get; set; } = false;

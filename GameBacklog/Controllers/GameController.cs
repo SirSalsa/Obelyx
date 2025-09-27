@@ -21,10 +21,11 @@ namespace GameBacklog.API.Controllers
         /// Add a new blank game entry with a title.
         /// </summary>
         /// <param name="title">The game's title.</param>
+        /// <param name="coverImage">The image file for the game cover.</param>
         /// <returns></returns>
         [HttpPost]
         [Route("Create")]
-        public async Task<IActionResult> CreateGame([FromQuery] string title)
+        public async Task<IActionResult> CreateGame([FromForm] string title, IFormFile? coverImage)
         {
             if (string.IsNullOrEmpty(title))
             {
@@ -32,6 +33,11 @@ namespace GameBacklog.API.Controllers
             }
 
             var createdGame = await _gameService.CreateGameAsync(title);
+
+            if (coverImage != null)
+            {
+                createdGame = await _gameService.UpdateCoverAsync(createdGame.Id, coverImage);
+            }
 
             return Ok(createdGame);
         }

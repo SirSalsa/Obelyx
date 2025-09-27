@@ -1,5 +1,6 @@
 ﻿using GameBacklog.Core.Entities;
 using GameBacklog.Core.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
 
@@ -69,5 +70,41 @@ namespace GameBacklog.Data.Services
 
             return true;
         }
+
+        public async Task<Game> UpdateCoverAsync(Guid guid, IFormFile coverImage)
+        {
+            var game = await _appDbContext.Games.FirstOrDefaultAsync(g => g.Id == guid);
+
+            if (game == null)
+            {
+                throw new KeyNotFoundException($"Game with id {guid} not found.");
+            }
+
+            if (coverImage != null && coverImage.Length > 0)
+            {
+                var uploadsFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "images", "covers");
+
+                if (!Directory.Exists(uploadsFolder))
+                {
+                    Directory.CreateDirectory(uploadsFolder);
+                }
+
+                // Cover image inherits game guid
+                var uniqueFileName = $"{guid}{Path.GetExtension(coverImage.FileName)}";
+                var filePath = Path.Combine(uploadsFolder, uniqueFileName);
+
+                using (var fileStream = new FileStream(filePath, FileMode.Create))
+                {
+                    await coverImage.CopyToAsync(fileStream);
+                }
+
+                game.ImagePath = $"/images/covers/{uniqueFileName}";
+                _appDbContext.Games.Update(game);
+                await _appDbContext.SaveChangesAsync();
+            }
+
+            return game;
+        }
+
     }
 }
