@@ -9,6 +9,6 @@ namespace GameBacklog.Data.Services
         Task<Game?> GetGameAsync(Guid guid);
         Task<IEnumerable<Game>> GetGamesAsync(GamesGetRequest gamesGetRequest);
         Task<Game> UpdateGameEntryAsync(GameUpdateRequest request);
-        Task<bool> DeleteGameAsync(string guid);
+        Task<bool> DeleteGameAsync(Guid guid);
     }
 }

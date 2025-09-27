@@ -2,6 +2,7 @@
 using GameBacklog.Core.Models;
 using GameBacklog.Data.Services;
 using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
 
 namespace GameBacklog.API.Controllers
 {
@@ -16,9 +17,14 @@ namespace GameBacklog.API.Controllers
             _gameService = gameService;
         }
 
+        /// <summary>
+        /// Add a new blank game entry with a title.
+        /// </summary>
+        /// <param name="title">The game's title.</param>
+        /// <returns></returns>
         [HttpPost]
         [Route("Create")]
-        public async Task<IActionResult> CreateGame([FromBody] string title)
+        public async Task<IActionResult> CreateGame([FromQuery] string title)
         {
             if (string.IsNullOrEmpty(title))
             {
@@ -69,9 +75,26 @@ namespace GameBacklog.API.Controllers
             return Ok();
         }
 
+        /// <summary>
+        /// Delete the specified game entry.
+        /// </summary>
+        /// <param name="guid"></param>
+        /// <returns></returns>
         [HttpDelete]
-        public IActionResult DeleteGame([FromBody] string guid)
+        public async Task<IActionResult> DeleteGame([FromQuery] string guid)
         {
+            if (string.IsNullOrEmpty(guid) || !Guid.TryParse(guid, out var parsedGuid))
+            {
+                return BadRequest("Guid is empty or invalid.");
+            }
+
+            var response = await _gameService.DeleteGameAsync(parsedGuid);
+
+            if (response == false)
+            {
+                return NotFound($"Game with id {parsedGuid} not found.");
+            }
+
             return Ok();
         }
     }

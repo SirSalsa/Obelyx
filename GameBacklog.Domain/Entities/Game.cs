@@ -22,6 +22,6 @@ namespace GameBacklog.Core.Entities
         // TODO:
         // Optional Info - Platform, Genre(s)
         //
-        // Backlog Related - Notes
+        // Backlog Related - Notes, Started Date, Finished Date
     }
 }

@@ -54,9 +54,20 @@ namespace GameBacklog.Data.Services
         {
             throw new NotImplementedException();
         }
-        public Task<bool> DeleteGameAsync(string guid)
+
+        public async Task<bool> DeleteGameAsync(Guid guid)
         {
-            throw new NotImplementedException();
+            var game = _appDbContext.Games.FirstOrDefault(g => g.Id == guid);
+
+            if (game == null)
+            {
+                return false;
+            }
+
+            _appDbContext.Games.Remove(game);
+            await _appDbContext.SaveChangesAsync();
+
+            return true;
         }
     }
 }
