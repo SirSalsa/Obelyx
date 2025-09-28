@@ -37,12 +37,13 @@ header {
         align-items: center;
         width: 100%;
 
-        p {
+        #header-text {
             margin: 0 15px;
             cursor: pointer;
             font-size: 1.2rem;
             font-weight: 500;
             color: rgba(255, 255, 255, 0.87);
+            text-decoration: none;
 
             &:hover {
                 color: hotpink;

@@ -1,22 +1,23 @@
-import React from "react";
+import { Link } from "react-router-dom"
 import logo from "../../assets/react.svg"
 import "./header.scss"
 
-function Header(){
+function Header() {
     return (
         <header>
             <div className="Header_Wrapper">
                 <div className="Header_Logo">
-                <img src={logo} alt="Logo"/>
+                    <img src={logo} alt="Logo" />
                 </div>
                 <div className="Header_Container">
-                    <p>Home</p>
-                    <p>Game List</p>
-                    <p>Statistics</p>
-                    <p>Settings</p>
+                    <Link id="header-text" to="/">Home</Link>
+                    <Link id="header-text" to="/games">Game List</Link>
+                    <Link id="header-text" to="/statistics">Statistics</Link>
+                    <Link id="header-text" to="/add-game">Add Game</Link>
+                    <Link id="header-text" to="/settings">Settings</Link>
                 </div>
             </div>
-            
+
         </header>
     );
 }
