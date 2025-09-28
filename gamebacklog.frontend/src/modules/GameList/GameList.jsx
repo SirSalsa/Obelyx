@@ -83,11 +83,15 @@ function GameList() {
           {games.length === 0 ? (
             <p>No games found. Try searching!</p>
           ) : (
-            games.map((game) => (
+            games.map(game => (
               <GameCard
                 key={game.id}
                 title={game.title}
-                imgSrc={game.imagePath || test}
+                imgSrc={
+                  game.imagePath
+                    ? `https://localhost:7125${game.imagePath}`
+                    : test
+                }
               />
             ))
           )}
