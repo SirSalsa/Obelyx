@@ -13,7 +13,7 @@ function Header() {
                     <Link id="header-text" to="/">Home</Link>
                     <Link id="header-text" to="/games">Game List</Link>
                     <Link id="header-text" to="/statistics">Statistics</Link>
-                    <Link id="header-text" to="/add-game">Add Game</Link>
+                    <Link id="header-text" to="/add-game">Import/Export</Link>
                     <Link id="header-text" to="/settings">Settings</Link>
                 </div>
             </div>
