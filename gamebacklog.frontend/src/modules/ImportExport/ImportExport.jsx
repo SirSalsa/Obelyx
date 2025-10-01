@@ -1,13 +1,18 @@
 import "./ImportExport.scss"
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 
 function ImportExport() {
     const [image, setImage] = useState(null);
+    const fileInputRef = useRef(null);
 
     const handleImageChange = (e) => {
         if (e.target.files && e.target.files[0]) {
             setImage(URL.createObjectURL(e.target.files[0]));
         }
+    };
+
+    const handleUploadButtonClick = () => {
+        fileInputRef.current.click();
     };
 
     return (
@@ -55,9 +60,17 @@ function ImportExport() {
                             <span>No image selected</span>
                         )}
                     </div>
-                    <form>
-                        <input type="file" id="image" name="image" onChange={handleImageChange} />
-                    </form>
+                    <input
+                        type="file"
+                        id="image"
+                        name="image"
+                        onChange={handleImageChange}
+                        ref={fileInputRef}
+                        className="hidden-file-input"
+                    />
+                    <button type="button" id="upload-image-button" onClick={handleUploadButtonClick}>
+                        Choose Image
+                    </button>
                 </div>
                 <div className="Add_Bottom">
                     <button id="clear-game-button">Clear</button>
