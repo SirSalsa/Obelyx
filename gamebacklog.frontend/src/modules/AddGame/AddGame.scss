@@ -1,11 +1,10 @@
 @use "../../base.scss" as *;
 @use "sass:color";
 
-.ImportExport {
+.AddGame_Main {
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 20px;
 
     h2 {
         margin-bottom: 20px;

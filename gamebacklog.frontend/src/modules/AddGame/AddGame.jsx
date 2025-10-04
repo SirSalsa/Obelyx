@@ -1,7 +1,7 @@
-import "./ImportExport.scss"
+import "./AddGame.scss"
 import { useState, useRef } from 'react';
 
-function ImportExport() {
+function AddGame() {
     const [image, setImage] = useState(null);
     const fileInputRef = useRef(null);
 
@@ -16,18 +16,8 @@ function ImportExport() {
     };
 
     return (
-        <main className="ImportExport">
-            <h2>Title</h2>
-            <select name="sort" id="sort">
-                <option value="add">Add Game</option>
-                {/** Add other pages later */}
-                <option value="import">Import Games</option>
-                <option value="export">Export Games</option>
-            </select>
-            {/** Render content based on selected option */}
-            <div className="ImportExport_Content">
-
-            </div>
+        <main className="AddGame_Main">
+            <h2>Add Game</h2>
             <div className="Add_Container">
                 <div className="Add_Left">
                     <h3>Game Information</h3>
@@ -81,4 +71,4 @@ function ImportExport() {
     )
 }
 
-export default ImportExport;
+export default AddGame;

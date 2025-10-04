@@ -5,7 +5,7 @@ import Footer from './modules/Footer/Footer'
 
 // Pages
 import GameList from './modules/GameList/GameList'
-import ImportExport from './modules/ImportExport/ImportExport'
+import AddGame from './modules/AddGame/AddGame'
 
 function App() {
   return (
@@ -14,11 +14,8 @@ function App() {
         <Header />
         <Routes>
           {/** TODO: Implement actual page components */}
-          <Route path="/" element={<div>Home Page</div>} />
           <Route path="/games" element={<GameList />} />
-          <Route path="/statistics" element={<div>Statistics Page</div>} />
-          <Route path="/add-game" element={<ImportExport />} />
-          <Route path="/settings" element={<div>Settings Page</div>} />
+          <Route path="/add-game" element={<AddGame />} />
         </Routes>
         <Footer />
       </div>
