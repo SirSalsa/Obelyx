@@ -1,18 +1,34 @@
 import "./AddGame.scss"
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 
 function AddGame() {
     const [image, setImage] = useState(null);
+    const [imagePreview, setImagePreview] = useState(null);
     const fileInputRef = useRef(null);
 
     const handleImageChange = (e) => {
         if (e.target.files && e.target.files[0]) {
-            setImage(e.target.files[0]); // store File
+            const file = e.target.files[0];
+            setImage(file); // store File object
+            setImagePreview(URL.createObjectURL(file)); // create and store URL for preview
         }
     };
 
     const handleUploadButtonClick = () => {
         fileInputRef.current.click();
+    };
+
+    const handleClear = async () => {
+        setImage(null);
+        setImagePreview(null);
+        fileInputRef.current.value = null;
+        document.querySelector('input[title="Title"]').value = "";
+        document.querySelector('select[name="status"]').value = "";
+        document.querySelector('input[title="Release Year"]').value = "";
+        document.querySelector('input[title="Score"]').value = "";
+        document.querySelector('input[title="Hours Played"]').value = "";
+        document.querySelector('input[type="checkbox"]').checked = false;
+        document.querySelector('textarea[title="Notes"]').value = "";
     };
 
     const handleAddGame = async () => {
@@ -31,7 +47,7 @@ function AddGame() {
             formData.append("gameData", JSON.stringify(gameData));
 
             if (image) {
-                formData.append("coverImage", image); // assuming `image` is a File
+                formData.append("coverImage", image);
             }
 
             const res = await fetch("https://localhost:7125/api/games", {
@@ -43,10 +59,22 @@ function AddGame() {
 
             const data = await res.json();
             console.log("Game added successfully:", data);
+
+            // Clear form after successful submission
+            await handleClear();
         } catch (err) {
             console.error("Error adding game:", err);
         }
     };
+
+    // Clean up the object URL to avoid memory leaks
+    useEffect(() => {
+        return () => {
+            if (imagePreview) {
+                URL.revokeObjectURL(imagePreview);
+            }
+        };
+    }, [imagePreview]);
 
     return (
         <main className="AddGame_Main">
@@ -77,8 +105,8 @@ function AddGame() {
                 <div className="Add_Right">
                     <h3>Upload Cover Image</h3>
                     <div id="image-preview">
-                        {image ? (
-                            <img src={image} alt="Preview" />
+                        {imagePreview ? (
+                            <img src={imagePreview} alt="Preview" />
                         ) : (
                             <span>No image selected</span>
                         )}
@@ -96,7 +124,7 @@ function AddGame() {
                     </button>
                 </div>
                 <div className="Add_Bottom">
-                    <button id="clear-game-button">Clear</button>
+                    <button id="clear-game-button" onClick={handleClear}>Clear</button>
                     <button id="add-game-button" onClick={handleAddGame}>Add Game</button>
                 </div>
             </div>
