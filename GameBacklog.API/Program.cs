@@ -1,6 +1,6 @@
 using System.Reflection;
-using GameBacklog.Data;
-using GameBacklog.Data.Services;
+using Obelyx.Data;
+using Obelyx.Data.Services;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -10,7 +10,7 @@ var builder = WebApplication.CreateBuilder(args);
 // ---------------------------------------------------------
 
 // Database (EF Core)
-builder.Services.AddDbContext<AppDbContext>(options =>
+builder.Services.AddDbContext<ObelyxContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("SqlServer")));
 
 // Application services
@@ -47,7 +47,7 @@ var app = builder.Build();
 // ---------------------------------------------------------
 using (var scope = app.Services.CreateScope())
 {
-    var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+    var db = scope.ServiceProvider.GetRequiredService<ObelyxContext>();
     db.Database.Migrate();
 }
 

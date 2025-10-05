@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace GameBacklog.Data.Migrations
+namespace Obelyx.Data.Migrations
 {
     /// <inheritdoc />
     public partial class Init : Migration

@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace GameBacklog.Core.Models
+namespace Obelyx.Core.Models
 {
     public class GamesGetRequest
     {

@@ -1,8 +1,8 @@
-﻿using GameBacklog.Core.Models;
-using GameBacklog.Data.Services;
+﻿using Obelyx.Core.Models;
+using Obelyx.Data.Services;
 using Microsoft.AspNetCore.Mvc;
 
-namespace GameBacklog.API.Controllers
+namespace Obelyx.API.Controllers
 {
     [ApiController]
     [Route("api/Games")]

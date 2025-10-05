@@ -1,8 +1,8 @@
-﻿using GameBacklog.Core.Entities;
-using GameBacklog.Core.Models;
+﻿using Obelyx.Core.Entities;
+using Obelyx.Core.Models;
 using Microsoft.AspNetCore.Http;
 
-namespace GameBacklog.Data.Services
+namespace Obelyx.Data.Services
 {
     public interface IGameService
     {

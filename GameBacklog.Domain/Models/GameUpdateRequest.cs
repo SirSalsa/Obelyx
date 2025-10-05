@@ -1,4 +1,4 @@
-﻿namespace GameBacklog.Core.Models
+﻿namespace Obelyx.Core.Models
 {
     /// <summary>
     /// Update an existing game in the database.

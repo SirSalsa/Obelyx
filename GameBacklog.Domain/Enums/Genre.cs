@@ -1,4 +1,4 @@
-﻿namespace GameBacklog.Core.Enums
+﻿namespace Obelyx.Core.Enums
 {
     public enum Genre
     {

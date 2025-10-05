@@ -1,11 +1,14 @@
-﻿using GameBacklog.Core.Entities;
+﻿using Obelyx.Core.Entities;
 using Microsoft.EntityFrameworkCore;
 
-namespace GameBacklog.Data
+namespace Obelyx.Data
 {
-    public sealed class AppDbContext : DbContext
+    /// <summary>
+    /// Obelyx database context.
+    /// </summary>
+    public sealed class ObelyxContext : DbContext
     {
-        public AppDbContext(DbContextOptions<AppDbContext> opts) : base(opts) { }
+        public ObelyxContext(DbContextOptions<ObelyxContext> opts) : base(opts) { }
         public DbSet<Game> Games { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)

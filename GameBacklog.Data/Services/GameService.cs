@@ -1,16 +1,16 @@
-﻿using GameBacklog.Core.Entities;
-using GameBacklog.Core.Enums;
-using GameBacklog.Core.Models;
+﻿using Obelyx.Core.Entities;
+using Obelyx.Core.Enums;
+using Obelyx.Core.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 
-namespace GameBacklog.Data.Services
+namespace Obelyx.Data.Services
 {
     public class GameService : IGameService
     {
-        private readonly AppDbContext _appDbContext;
+        private readonly ObelyxContext _appDbContext;
 
-        public GameService(AppDbContext appDbContext)
+        public GameService(ObelyxContext appDbContext)
         {
             _appDbContext = appDbContext;
         }

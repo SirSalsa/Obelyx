@@ -3,13 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.14.36414.22
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameBacklog.API", "GameBacklog.API\GameBacklog.API.csproj", "{A1A617F0-CC9F-469B-BF7F-D801B0B38290}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Obelyx.API", "GameBacklog.API\Obelyx.API.csproj", "{A1A617F0-CC9F-469B-BF7F-D801B0B38290}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameBacklog.Core", "GameBacklog.Domain\GameBacklog.Core.csproj", "{B7D13CE3-B580-4BFD-A229-359366BE5F65}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Obelyx.Core", "GameBacklog.Domain\Obelyx.Core.csproj", "{B7D13CE3-B580-4BFD-A229-359366BE5F65}"
 EndProject
 Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "gamebacklog.frontend", "GameBacklog.Frontend\gamebacklog.frontend.esproj", "{08EC3D67-6728-B075-E408-803074A996CD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameBacklog.Data", "GameBacklog.Data\GameBacklog.Data.csproj", "{1ED33F0F-6812-4A6B-B22D-322E9A51D5CB}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Obelyx.Data", "GameBacklog.Data\Obelyx.Data.csproj", "{1ED33F0F-6812-4A6B-B22D-322E9A51D5CB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

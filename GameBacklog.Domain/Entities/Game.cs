@@ -1,6 +1,6 @@
-﻿using GameBacklog.Core.Enums;
+﻿using Obelyx.Core.Enums;
 
-namespace GameBacklog.Core.Entities
+namespace Obelyx.Core.Entities
 {
     public sealed class Game
     {
