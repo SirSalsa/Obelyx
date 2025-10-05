@@ -7,12 +7,45 @@ function AddGame() {
 
     const handleImageChange = (e) => {
         if (e.target.files && e.target.files[0]) {
-            setImage(URL.createObjectURL(e.target.files[0]));
+            setImage(e.target.files[0]); // store File
         }
     };
 
     const handleUploadButtonClick = () => {
         fileInputRef.current.click();
+    };
+
+    const handleAddGame = async () => {
+        try {
+            const gameData = {
+                title: document.querySelector('input[title="Title"]').value,
+                status: document.querySelector('select[name="status"]').value,
+                releaseYear: parseInt(document.querySelector('input[title="Release Year"]').value) || null,
+                score: parseInt(document.querySelector('input[title="Score"]').value) || null,
+                hoursPlayed: parseInt(document.querySelector('input[title="Hours Played"]').value) || null,
+                rolledCredits: document.querySelector('input[type="checkbox"]').checked,
+                notes: document.querySelector('textarea[title="Notes"]').value
+            };
+
+            const formData = new FormData();
+            formData.append("gameData", JSON.stringify(gameData));
+
+            if (image) {
+                formData.append("coverImage", image); // assuming `image` is a File
+            }
+
+            const res = await fetch("https://localhost:7125/api/games", {
+                method: "POST",
+                body: formData
+            });
+
+            if (!res.ok) throw new Error("Failed to add game");
+
+            const data = await res.json();
+            console.log("Game added successfully:", data);
+        } catch (err) {
+            console.error("Error adding game:", err);
+        }
     };
 
     return (
@@ -22,7 +55,6 @@ function AddGame() {
                 <div className="Add_Left">
                     <h3>Game Information</h3>
                     <input type="text" title="Title" placeholder="Enter game title" />
-                    <input type="text" title="Release Year" placeholder="Enter release year" />
                     <select name="status" id="status">
                         <option value="" disabled selected>Status</option>
                         <option value="all">All</option>
@@ -33,6 +65,7 @@ function AddGame() {
                         <option value="completed">Completed</option>
                         <option value="dropped">Dropped</option>
                     </select>
+                    <input type="text" title="Release Year" placeholder="Enter release year" />
                     <input type="number" title="Score" placeholder="Enter score (0-10)" min="0" max="10" />
                     <input type="number" title="Hours Played" placeholder="Enter hours played" min="0" />
                     <label>
@@ -64,7 +97,7 @@ function AddGame() {
                 </div>
                 <div className="Add_Bottom">
                     <button id="clear-game-button">Clear</button>
-                    <button id="add-game-button">Add Game</button>
+                    <button id="add-game-button" onClick={handleAddGame}>Add Game</button>
                 </div>
             </div>
         </main>

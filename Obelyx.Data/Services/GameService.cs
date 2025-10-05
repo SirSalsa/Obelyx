@@ -15,12 +15,22 @@ namespace Obelyx.Data.Services
             _appDbContext = appDbContext;
         }
 
-        public async Task<Game> CreateGameAsync(string title)
+        public async Task<Game> CreateGameAsync(GameAddRequest request)
         {
+            // Parsing status from string value
+            BacklogStatus status;
+            Enum.TryParse(request.Status, true, out status);
+
             var game = new Game
             {
                 Id = Guid.NewGuid(),
-                Title = title
+                Title = request.Title,
+                BacklogStatus = status,
+                ReleaseYear = request.ReleaseYear,
+                Score = request.Score,
+                HoursPlayed = request.HoursPlayed,
+                RolledCredits = request.RolledCredits
+                //Notes = request.Notes - To be added
             };
 
             _appDbContext.Games.Add(game);

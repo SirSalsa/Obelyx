@@ -58,6 +58,7 @@ function GameList() {
           <input type="checkbox" />
           Rolled Credits
         </label>
+        {/*
         <label>
           <input type="checkbox" />
           Favorites Only
@@ -66,6 +67,7 @@ function GameList() {
           <input type="checkbox" />
           Completed 100%
         </label>
+        */}
         <div id="ScoreFilter">
           <label>Score</label>
           <input type="range" min="0" max="10" />

@@ -6,7 +6,7 @@ namespace Obelyx.Data.Services
 {
     public interface IGameService
     {
-        Task<Game> CreateGameAsync(string title);
+        Task<Game> CreateGameAsync(GameAddRequest request);
         Task<Game?> GetGameAsync(Guid guid);
         Task<IEnumerable<Game>> GetGamesAsync(GamesGetRequest gamesGetRequest);
         Task<Game> UpdateGameAsync(GameUpdateRequest request);

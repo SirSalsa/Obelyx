@@ -1,6 +1,7 @@
-﻿using Obelyx.Core.Models;
+﻿using Microsoft.AspNetCore.Mvc;
+using Obelyx.Core.Models;
 using Obelyx.Data.Services;
-using Microsoft.AspNetCore.Mvc;
+using System.Text.Json;
 
 namespace Obelyx.API.Controllers
 {
@@ -16,25 +17,33 @@ namespace Obelyx.API.Controllers
         }
 
         /// <summary>
-        /// Add a new blank game entry with a title.
+        /// Swag
         /// </summary>
-        /// <param name="title">The game's title.</param>
-        /// <param name="coverImage">The image file for the game cover.</param>
+        /// <param name="form"></param>
         /// <returns></returns>
         [HttpPost]
-        [Route("Create")]
-        public async Task<IActionResult> CreateGame([FromForm] string title, IFormFile? coverImage)
+        [Route("")]
+        public async Task<IActionResult> CreateGame([FromForm] CreateGameForm form)
         {
-            if (string.IsNullOrEmpty(title))
+            if (string.IsNullOrWhiteSpace(form.GameData))
+            {
+                return BadRequest("Game data is required.");
+            }
+
+            var request = JsonSerializer.Deserialize<GameAddRequest>(
+                form.GameData,
+                new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+
+            if (request is null || string.IsNullOrEmpty(request.Title))
             {
                 return BadRequest("Title cannot be empty.");
             }
 
-            var createdGame = await _gameService.CreateGameAsync(title);
+            var createdGame = await _gameService.CreateGameAsync(request);
 
-            if (coverImage != null)
+            if (form.CoverImage != null)
             {
-                createdGame = await _gameService.UpdateCoverAsync(createdGame.Id, coverImage);
+                createdGame = await _gameService.UpdateCoverAsync(createdGame.Id, form.CoverImage);
             }
 
             return Ok(createdGame);
