@@ -19,7 +19,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\GameBacklog.Data\Obelyx.Data.csproj" />
+    <ProjectReference Include="..\Obelyx.Data\Obelyx.Data.csproj" />
   </ItemGroup>
 
 </Project>

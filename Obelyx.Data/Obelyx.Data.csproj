@@ -18,7 +18,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\GameBacklog.Domain\Obelyx.Core.csproj" />
+    <ProjectReference Include="..\Obelyx.Core\Obelyx.Core.csproj" />
   </ItemGroup>
 
 </Project>

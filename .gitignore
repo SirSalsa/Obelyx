@@ -91,4 +91,4 @@ _ReSharper*/
 *.temp
 
 # Ignore uploaded cover images
-GameBacklog.API/wwwroot/images/covers/
+Obelyx.API/wwwroot/images/covers/
