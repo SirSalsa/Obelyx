@@ -1,5 +1,5 @@
 import './GameList.scss';
-import test from '../../assets/test.jpg';
+import placeholder from '../../assets/placeholder.png';
 import GameCard from './GameCard';
 import { useState } from 'react';
 
@@ -92,7 +92,7 @@ function GameList() {
                 imgSrc={
                   game.imagePath
                     ? `https://localhost:7125${game.imagePath}`
-                    : test
+                    : placeholder
                 }
               />
             ))
