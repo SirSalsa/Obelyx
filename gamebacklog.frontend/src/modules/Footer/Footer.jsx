@@ -3,7 +3,7 @@ import './Footer.scss';
 function Footer() {
   return (
     <footer>
-      Obelyx — A self-hosted game backlog tracker
+      Obelyx · Open-Source Game Tracker · v1.0.0
     </footer>
   );
 }

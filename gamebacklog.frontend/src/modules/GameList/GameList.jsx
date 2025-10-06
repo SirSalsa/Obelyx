@@ -11,7 +11,9 @@ function GameList() {
     try {
       const params = new URLSearchParams({
         page: 1,
-        pageSize: 100
+        pageSize: 100,
+        statusFilter: document.getElementById('status').value, // All if empty
+        sortBy: document.getElementById('sort').value || 'title'
       });
 
       const res = await fetch(`https://localhost:7125/api/games/interval?${params}`);
@@ -25,8 +27,9 @@ function GameList() {
   };
 
   const handleClear = () => {
-    // Clear all filters (reset state variables if any)
-    // For now, just clear the game list
+    document.querySelector('input[placeholder="Game Title..."]').value = "";
+    document.getElementById('status').value = "";
+    document.getElementById('sort').value = "title";
     setGames([]);
   };
 
@@ -48,10 +51,10 @@ function GameList() {
         </select>
         <select name="sort" id="sort">
           <option value="" disabled selected>Sort By</option>
-          <option value="title">Title</option>
-          <option value="release-date">Release Date</option>
-          <option value="rating">Rating</option>
-          <option value="time-played">Time Played</option>
+          <option value="Title">Title</option>
+          <option value="ReleaseDate">Release Date</option>
+          <option value="Score">Score</option>
+          <option value="TimePlayed">Time Played</option>
         </select>
         <h4>Advanced Filters</h4>
         <label>

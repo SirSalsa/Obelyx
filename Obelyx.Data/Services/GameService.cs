@@ -49,14 +49,33 @@ namespace Obelyx.Data.Services
 
         public async Task<IEnumerable<Game>> GetGamesAsync(GamesGetRequest request)
         {
-            // TODO: Add possible alternate ways to order based on object in request model
+            var query = _appDbContext.Games.AsQueryable();
 
-            // Pick out a specified part of the collection
-            var games = await _appDbContext.Games
-                .OrderBy(g => g.Title)
-                .Skip(request.Page - 1)
-                .Take(request.PageSize)
-                .ToListAsync();
+            // Apply sorting (before Skip/Take)
+            query = request.SortBy switch
+            {
+                "ReleaseDate" => query.OrderBy(g => g.ReleaseYear == null)
+                                       .ThenBy(g => g.ReleaseYear),
+                "Score" => query.OrderByDescending(g => g.Score == null)
+                                       .ThenByDescending(g => g.Score),
+                "HoursPlayed" => query.OrderByDescending(g => g.HoursPlayed == null)
+                                       .ThenByDescending(g => g.HoursPlayed),
+                _ => query.OrderBy(g => g.Title),
+            };
+
+            // Apply eventual filter for backlog status
+            if (request.StatusFilter != null)
+            {
+                query = query.Where(g => g.BacklogStatus == request.StatusFilter);
+            }
+
+            // Apply pagination AFTER sorting
+            query = query
+                .Skip((request.Page - 1) * request.PageSize)
+                .Take(request.PageSize);
+
+            // Execute query
+            var games = await query.ToListAsync();
 
             return games;
         }
