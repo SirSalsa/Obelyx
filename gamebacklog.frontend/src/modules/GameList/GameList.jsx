@@ -13,7 +13,9 @@ function GameList() {
         page: 1,
         pageSize: 100,
         statusFilter: document.getElementById('status').value, // All if empty
-        sortBy: document.getElementById('sort').value || 'title'
+        sortBy: document.getElementById('sort').value || 'title',
+        minScore: document.getElementById('min-score').value || 0,
+        rolledCreditsOnly: document.querySelector('input[type="checkbox"]').checked
       });
 
       const res = await fetch(`https://localhost:7125/api/games/interval?${params}`);
@@ -29,7 +31,8 @@ function GameList() {
   const handleClear = () => {
     document.querySelector('input[placeholder="Game Title..."]').value = "";
     document.getElementById('status').value = "";
-    document.getElementById('sort').value = "title";
+    document.getElementById('sort').value = "";
+    document.getElementById('min-score').value = "";
     setGames([]);
   };
 
@@ -54,9 +57,18 @@ function GameList() {
           <option value="Title">Title</option>
           <option value="ReleaseDate">Release Date</option>
           <option value="Score">Score</option>
-          <option value="TimePlayed">Time Played</option>
+          <option value="HoursPlayed">Time Played</option>
         </select>
+
         <h4>Advanced Filters</h4>
+        <select name="min-score" id="min-score">
+          <option value="" disabled selected>Minimum Score</option>
+          <option value="1">★+</option>
+          <option value="2">★★+</option>
+          <option value="3">★★★+</option>
+          <option value="4">★★★★+</option>
+          <option value="5">★★★★★</option>
+        </select>
         <label>
           <input type="checkbox" />
           Rolled Credits
@@ -71,10 +83,6 @@ function GameList() {
           Completed 100%
         </label>
         */}
-        <div id="ScoreFilter">
-          <label>Score</label>
-          <input type="range" min="0" max="10" />
-        </div>
         <hr />
         <div className="ButtonGroup">
           <button id="clear-filters" onClick={handleClear}>Clear Filters</button>
@@ -92,6 +100,7 @@ function GameList() {
               <GameCard
                 key={game.id}
                 title={game.title}
+                score={game.score}
                 imgSrc={
                   game.imagePath
                     ? `https://localhost:7125${game.imagePath}`

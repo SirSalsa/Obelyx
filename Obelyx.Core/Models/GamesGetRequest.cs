@@ -26,5 +26,16 @@ namespace Obelyx.Core.Models
         /// What BacklogStatus to filter by.
         /// </summary>
         public BacklogStatus? StatusFilter { get; set; }
+
+        /// <summary>
+        /// The minimum score to include in the search.
+        /// </summary>
+        [Range(0, 5)]
+        public int? MinScore { get; set; } = null;
+
+        /// <summary>
+        /// Only include results with Rolled Credits.
+        /// </summary>
+        public bool? RolledCreditsOnly { get; set; } = false;
     }
 }

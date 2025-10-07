@@ -1,13 +1,16 @@
 import './GameList.scss';
 
-function GameCard({ title, imgSrc }) {
+function GameCard({ title, imgSrc, score }) {
   return (
     <div className="GameCard">
-        <div className="GameCardImageContainer">
-            <img src={imgSrc} alt="Game Cover" />
-            <div className="GameCardRating">3 ★</div>
-        </div>
-        <h3>{title}</h3>
+      <div className="GameCardImageContainer">
+        <img src={imgSrc} alt="Game Cover" />
+        {/* Only show score if it's provided */}
+        {score != null && (
+          <div className="GameCardRating">{score} ★</div>
+        )}
+      </div>
+      <h3>{title}</h3>
     </div>
   );
 }

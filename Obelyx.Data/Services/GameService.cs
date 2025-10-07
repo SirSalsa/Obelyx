@@ -56,10 +56,10 @@ namespace Obelyx.Data.Services
             {
                 "ReleaseDate" => query.OrderBy(g => g.ReleaseYear == null)
                                        .ThenBy(g => g.ReleaseYear),
-                "Score" => query.OrderByDescending(g => g.Score == null)
-                                       .ThenByDescending(g => g.Score),
-                "HoursPlayed" => query.OrderByDescending(g => g.HoursPlayed == null)
-                                       .ThenByDescending(g => g.HoursPlayed),
+                "Score" => query.OrderBy(g => g.Score == null)
+                                .ThenByDescending(g => g.Score),
+                "HoursPlayed" => query.OrderBy(g => g.HoursPlayed == null)
+                                      .ThenByDescending(g => g.HoursPlayed),
                 _ => query.OrderBy(g => g.Title),
             };
 
@@ -67,6 +67,18 @@ namespace Obelyx.Data.Services
             if (request.StatusFilter != null)
             {
                 query = query.Where(g => g.BacklogStatus == request.StatusFilter);
+            }
+
+            // Filter games with a non-null score of at least 1
+            if (request.MinScore is >= 1)
+            {
+                query = query.Where(g => g.Score.HasValue && g.Score > 0 && g.Score >= request.MinScore);
+            }
+
+            // Filter entries only if RolledCreditsOnly is true
+            if (request.RolledCreditsOnly == true)
+            {
+                query = query.Where(g => g.RolledCredits);
             }
 
             // Apply pagination AFTER sorting

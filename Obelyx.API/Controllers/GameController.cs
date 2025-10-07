@@ -17,7 +17,7 @@ namespace Obelyx.API.Controllers
         }
 
         /// <summary>
-        /// Swag
+        /// Create a new game entry, optionally with an associated cover image.
         /// </summary>
         /// <param name="form"></param>
         /// <returns></returns>
