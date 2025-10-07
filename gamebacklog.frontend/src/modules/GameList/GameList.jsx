@@ -5,6 +5,7 @@ import { useState } from 'react';
 
 function GameList() {
 
+  const [selectedGame, setSelectedGame] = useState(null);
   const [games, setGames] = useState([]);
 
   const handleSearch = async () => {
@@ -33,6 +34,8 @@ function GameList() {
     document.getElementById('status').value = "";
     document.getElementById('sort').value = "";
     document.getElementById('min-score').value = "";
+    document.querySelector('input[type="checkbox"]').checked = false;
+    selectedGame && setSelectedGame(null);
     setGames([]);
   };
 
@@ -106,11 +109,41 @@ function GameList() {
                     ? `https://localhost:7125${game.imagePath}`
                     : placeholder
                 }
+                onClick={() => setSelectedGame(game)}
               />
             ))
           )}
         </div>
       </div>
+      {selectedGame && (
+        <div
+          style={{
+            marginTop: "30px",
+            padding: "20px",
+            background: "#222",
+            color: "white",
+            borderRadius: "10px",
+            width: "400px",
+          }}
+        >
+          <h2>{selectedGame.title}</h2>
+          <p>This is your preview area. Add whatever info you want here.</p>
+          <button
+            onClick={() => setSelectedGame(null)}
+            style={{
+              marginTop: "10px",
+              padding: "6px 12px",
+              background: "#555",
+              color: "white",
+              border: "none",
+              borderRadius: "5px",
+              cursor: "pointer",
+            }}
+          >
+            Close
+          </button>
+        </div>
+      )}
     </main>
   );
 }

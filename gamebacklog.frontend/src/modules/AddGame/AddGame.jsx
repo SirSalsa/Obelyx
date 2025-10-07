@@ -94,7 +94,7 @@ function AddGame() {
                         <option value="dropped">Dropped</option>
                     </select>
                     <input type="text" title="Release Year" placeholder="Enter release year" />
-                    <input type="number" title="Score" placeholder="Enter score (0-10)" min="0" max="10" />
+                    <input type="number" title="Score" placeholder="Enter score (0-5)" min="0" max="5" />
                     <input type="number" title="Hours Played" placeholder="Enter hours played" min="0" />
                     <label>
                         <input type="checkbox" />

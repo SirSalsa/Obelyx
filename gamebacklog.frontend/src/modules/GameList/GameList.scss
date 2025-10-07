@@ -141,6 +141,7 @@ main {
                 height: 280px;
                 flex-shrink: 0; // Prevent the container from shrinking
                 overflow: hidden; // Prevent content from overflowing the container
+                cursor: pointer;
 
                 img {
                     width: 100%;
