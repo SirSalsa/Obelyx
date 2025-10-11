@@ -30,6 +30,39 @@ function GameList() {
     }
   };
 
+  const handleUpdate = async (updatedGame) => {
+    try {
+      const res = await fetch(`https://localhost:7125/api/games/`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          id: updatedGame.id,
+          title: updatedGame.title || null,
+          releaseYear: updatedGame.releaseYear || null,
+          backlogStatus: updatedGame.backlogStatus || "",
+          score: updatedGame.score,
+          hoursPlayed: updatedGame.hoursPlayed,
+          rolledCredits: updatedGame.rolledCredits,
+        }),
+      });
+
+      if (!res.ok) throw new Error("Failed to update game");
+
+      const saved = await res.json();
+
+      // Update the local games list immediately (optimistic UI)
+      setGames((prev) =>
+        prev.map((g) => (g.id === saved.id ? { ...g, ...saved } : g))
+      );
+
+      // Optionally close the details view
+      setSelectedGame(saved);
+
+    } catch (err) {
+      console.error("Error updating game:", err);
+    }
+  };
+
   const handleClear = () => {
     document.querySelector('input[placeholder="Game Title..."]').value = "";
     document.getElementById('status').value = "";
@@ -101,6 +134,7 @@ function GameList() {
         {selectedGame ? (
           <div>
             <GameDetails
+              id={selectedGame.id}
               title={selectedGame.title}
               imgSrc={
                 selectedGame.imagePath
@@ -111,6 +145,7 @@ function GameList() {
               hoursPlayed={selectedGame.hoursPlayed}
               rolledCredits={selectedGame.rolledCredits}
               notes={selectedGame.notes}
+              onUpdate={handleUpdate}
               onClose={() => setSelectedGame(null)}
             />
           </div>
