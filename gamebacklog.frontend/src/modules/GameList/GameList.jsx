@@ -2,6 +2,7 @@ import './GameList.scss';
 import placeholder from '../../assets/placeholder.png';
 import GameCard from './GameCard';
 import { useState } from 'react';
+import GameDetails from './GameDetails';
 
 function GameList() {
 
@@ -95,55 +96,47 @@ function GameList() {
       {/* Right side */}
       <div className="GameList">
         <h2>My Games</h2>
-        <div className="GameGallery">
-          {games.length === 0 ? (
-            <p>No games found. Try searching!</p>
-          ) : (
-            games.map(game => (
-              <GameCard
-                key={game.id}
-                title={game.title}
-                score={game.score}
-                imgSrc={
-                  game.imagePath
-                    ? `https://localhost:7125${game.imagePath}`
-                    : placeholder
-                }
-                onClick={() => setSelectedGame(game)}
-              />
-            ))
-          )}
-        </div>
+
+        {/* Show game details if a game is selected, otherwise show the game gallery */}
+        {selectedGame ? (
+          <div>
+            <GameDetails
+              title={selectedGame.title}
+              imgSrc={
+                selectedGame.imagePath
+                  ? `https://localhost:7125${selectedGame.imagePath}`
+                  : placeholder
+              }
+              score={selectedGame.score}
+              hoursPlayed={selectedGame.hoursPlayed}
+              rolledCredits={selectedGame.rolledCredits}
+              notes={selectedGame.notes}
+              onClose={() => setSelectedGame(null)}
+            />
+          </div>
+        ) : (
+          <div className="GameGallery">
+            {games.length === 0 ? (
+              <p>No games found. Try searching!</p>
+            ) : (
+              games.map((game) => (
+                <GameCard
+                  key={game.id}
+                  title={game.title}
+                  score={game.score}
+                  imgSrc={
+                    game.imagePath
+                      ? `https://localhost:7125${game.imagePath}`
+                      : placeholder
+                  }
+                  onClick={() => setSelectedGame(game)}
+                />
+              ))
+            )}
+          </div>
+        )}
       </div>
-      {selectedGame && (
-        <div
-          style={{
-            marginTop: "30px",
-            padding: "20px",
-            background: "#222",
-            color: "white",
-            borderRadius: "10px",
-            width: "400px",
-          }}
-        >
-          <h2>{selectedGame.title}</h2>
-          <p>This is your preview area. Add whatever info you want here.</p>
-          <button
-            onClick={() => setSelectedGame(null)}
-            style={{
-              marginTop: "10px",
-              padding: "6px 12px",
-              background: "#555",
-              color: "white",
-              border: "none",
-              borderRadius: "5px",
-              cursor: "pointer",
-            }}
-          >
-            Close
-          </button>
-        </div>
-      )}
+
     </main>
   );
 }
