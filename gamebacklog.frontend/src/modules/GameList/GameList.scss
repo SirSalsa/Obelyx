@@ -33,7 +33,7 @@ main {
         border-radius: 4px;
         font-size: 1rem;
         box-sizing: border-box; // Include padding and border in width calculation
-        background-color: $color-surface;
+        background-color: $color-foreground;
         color: $color-text-primary;
     }
 
@@ -45,7 +45,7 @@ main {
         border-radius: 4px;
         font-size: 1rem;
         box-sizing: border-box; // Ensure consistent width
-        background-color: $color-surface;
+        background-color: $color-foreground;
         color: $color-text-primary;
     }
 
@@ -188,41 +188,80 @@ main {
 
     .GameDetails {
         display: flex;
-        flex-direction: row; // Image left, info right
-        align-items: flex-start;
-        justify-content: center;
-        gap: 2rem;
-        padding: 2rem;
-        background-color: #222;
-        color: white;
+        flex-direction: column; // stack main area + notes + buttons vertically
+        gap: 1.5rem;
+        background-color: $color-foreground;
+        color: $color-text-primary;
         border-radius: 10px;
-        margin-top: 2rem;
-        max-width: 800px;
-        margin-left: auto;
-        margin-right: auto;
-        position: relative; // for absolutely positioned buttons if needed
+        padding: 2rem;
+        margin: 2rem auto;
+        max-width: 850px;
+        position: relative;
+
+        /* --- Top: Image + Info side-by-side --- */
+        .GameDetailsTop {
+            display: flex;
+            flex-direction: row;
+            align-items: flex-start;
+            justify-content: center;
+            gap: 2rem;
+            width: 100%;
+
+            h2 {
+                width: 100%;
+                text-align: center;
+                grid-column: 1 / -1;
+                margin-bottom: 1rem;
+            }
+        }
 
         .GameDetailsImage img {
-            width: 250px;
+            width: 200px;
             height: auto;
             border-radius: 8px;
         }
 
         .GameDetailsInfo {
             flex: 1;
-            display: flex;
-            flex-direction: column;
-            gap: 0.75rem;
+            display: grid;
+            grid-template-columns: 2fr 1fr; // 2/3 form, 1/3 checkboxes
+            grid-template-rows: auto 1fr; // title row + form area
+            column-gap: 2rem;
+            row-gap: 1rem;
             text-align: left;
 
-            textarea {
-                background: #333;
-                color: white;
+            .GameDetailsForm {
+                grid-column: 1 / 2;
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);
+                gap: 1rem;
+
+                article {
+                    display: flex;
+                    flex-direction: column;
+                    gap: 0.25rem;
+                    width: 160px;
+                }
+            }
+
+            .GameDetailsCheckboxes {
+                grid-column: 2 / 3;
+                display: flex;
+                flex-direction: column;
+                justify-content: flex-start;
+                gap: 0.75rem;
+                padding-top: 1.75rem;
+            }
+
+            input[type="number"],
+            input[type="date"],
+            select {
+                background-color: $color-background;
+                color: $color-text-primary;
                 border: none;
                 border-radius: 5px;
                 padding: 0.5rem;
-                resize: vertical;
-                min-height: 80px;
+                width: 100%;
             }
 
             label {
@@ -232,27 +271,59 @@ main {
             }
         }
 
+        /* --- Notes Section --- */
+        #notes {
+            width: 100%;
+            background: $color-background;
+            color: $color-text-primary;
+            border: none;
+            border-radius: 5px;
+            padding: 0.5rem;
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        /* --- Buttons --- */
         .GameDetailsButtons {
             display: flex;
             justify-content: flex-end;
             gap: 1rem;
-            position: absolute;
-            bottom: 1rem;
-            right: 1rem;
+            margin-top: auto; // ensures it stays below notes
+            align-self: flex-end; // keeps buttons to the right
+            width: 100%;
 
             button {
-                background: #444;
-                color: white;
+                color: $color-text-primary;
                 border: none;
                 border-radius: 5px;
                 padding: 0.5rem 1rem;
                 cursor: pointer;
+                width: 80px;
+            }
+
+            #archive-game {
+                background: $color-error;
 
                 &:hover {
-                    background: #666;
+                    background: color.adjust($color-error, $lightness: 10%);
+                }
+            }
+
+            #save-game {
+                background: $color-primary;
+
+                &:hover {
+                    background: color.adjust($color-primary, $lightness: 10%);
+                }
+            }
+
+            #close-details {
+                background: $color-secondary;
+
+                &:hover {
+                    background: color.adjust($color-secondary, $lightness: 10%);
                 }
             }
         }
     }
-
 }

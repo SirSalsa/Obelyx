@@ -14,7 +14,7 @@
         padding: 10px;
         border-radius: 5px;
         border: 1px solid $color-border;
-        background-color: $color-surface;
+        background-color: $color-foreground;
         color: $color-text-primary;
         font-size: 1rem;
     }
@@ -55,7 +55,7 @@
             border: 1px solid $color-border;
             width: 100%; // Make inputs take the full width of their container
             box-sizing: border-box; // Include padding and border in the element's total width and height
-            background-color: $color-surface;
+            background-color: $color-foreground;
             color: $color-text-primary;
             font-size: 1rem;
         }
