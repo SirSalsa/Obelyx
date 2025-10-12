@@ -38,11 +38,14 @@ function GameList() {
         body: JSON.stringify({
           id: updatedGame.id,
           title: updatedGame.title || null,
-          releaseYear: updatedGame.releaseYear || null,
-          backlogStatus: updatedGame.backlogStatus || "",
-          score: updatedGame.score,
+          coverImageUrl: updatedGame.coverImageUrl || null,
+          startDate: updatedGame.startDate ? new Date(updatedGame.startDate).toISOString() : null,
+          finishedDate: updatedGame.finishedDate ? new Date(updatedGame.finishedDate).toISOString() : null,
+          backlogStatus: updatedGame.backlogStatus ?? null,
+          score: updatedGame.score || null,
           hoursPlayed: updatedGame.hoursPlayed,
           rolledCredits: updatedGame.rolledCredits,
+          notes: updatedGame.notes || null
         }),
       });
 
@@ -92,7 +95,8 @@ function GameList() {
         <select name="sort" id="sort">
           <option value="" disabled selected>Sort By</option>
           <option value="Title">Title</option>
-          <option value="ReleaseDate">Release Date</option>
+          <option value="StartDate">Start Date</option>
+          <option value="FinishedDate">Finished Date</option>
           <option value="Score">Score</option>
           <option value="HoursPlayed">Time Played</option>
         </select>
@@ -143,6 +147,8 @@ function GameList() {
               }
               score={selectedGame.score}
               hoursPlayed={selectedGame.hoursPlayed}
+              startDate={selectedGame.startDate}
+              finishedDate={selectedGame.finishedDate}
               rolledCredits={selectedGame.rolledCredits}
               notes={selectedGame.notes}
               onUpdate={handleUpdate}

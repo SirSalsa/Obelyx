@@ -43,7 +43,7 @@ namespace Obelyx.Data.Services
 
         public async Task<Game?> GetGameAsync(Guid guid)
         {
-            var game = await _appDbContext.Games.FirstOrDefaultAsync(x => x.Id == guid);
+            var game = await _appDbContext.Games.FirstOrDefaultAsync(g => g.Id == guid && g.IsArchived == false);
 
             return game;
         }
@@ -55,10 +55,14 @@ namespace Obelyx.Data.Services
             // Apply sorting (before Skip/Take)
             query = request.SortBy switch
             {
+                "StartDate" => query.OrderBy(g => g.StartDate == null)
+                                .ThenByDescending(g => g.StartDate),
+                "FinishedDate" => query.OrderBy(g => g.FinishedDate == null)
+                                .ThenByDescending(g => g.FinishedDate),
                 "Score" => query.OrderBy(g => g.Score == null)
                                 .ThenByDescending(g => g.Score),
                 "HoursPlayed" => query.OrderBy(g => g.HoursPlayed == null)
-                                      .ThenByDescending(g => g.HoursPlayed),
+                                .ThenByDescending(g => g.HoursPlayed),
                 _ => query.OrderBy(g => g.Title),
             };
 
@@ -79,6 +83,9 @@ namespace Obelyx.Data.Services
             {
                 query = query.Where(g => g.RolledCredits);
             }
+
+            // Auto-exclude archived entries
+            query = query.Where(g => g.IsArchived == false);
 
             // Apply pagination AFTER sorting
             query = query
@@ -104,13 +111,13 @@ namespace Obelyx.Data.Services
 
             // Update game entry based on what is not null
             game.Title = string.IsNullOrEmpty(request.Title) ? game.Title : request.Title;
+            game.BacklogStatus = request.BacklogStatus ?? game.BacklogStatus;
+            game.StartDate = request.StartDate ?? game.StartDate;
+            game.FinishedDate = request.FinishedDate ?? game.FinishedDate;
             game.Score = request.Score ?? game.Score;
             game.HoursPlayed = request.HoursPlayed ?? game.HoursPlayed;
-            game.BacklogStatus = string.IsNullOrEmpty(request.BacklogStatus)
-                ? game.BacklogStatus
-                : Enum.Parse<BacklogStatus>(request.BacklogStatus);
-
             game.RolledCredits = request.RolledCredits; // always has a value
+            game.Notes = request.Notes ?? game.Notes;
 
             _appDbContext.Games.Update(game);
             await _appDbContext.SaveChangesAsync();

@@ -1,14 +1,14 @@
 import { useState } from 'react';
 import './GameList.scss';
 
-function GameDetails({ id, title, imgSrc, score, hoursPlayed, rolledCredits, notes, onUpdate, onClose }) {
+function GameDetails({ id, title, imgSrc, score, hoursPlayed, startDate, finishedDate, rolledCredits, notes, onUpdate, onClose }) {
     // Local state for editable fields
     const [currentScore, setCurrentScore] = useState(score || '');
     const [currentHours, setCurrentHours] = useState(hoursPlayed || 0);
-    const [currentNotes, setCurrentNotes] = useState(notes || '');
     const [creditsRolled, setCreditsRolled] = useState(rolledCredits || false);
-    const [startDate, setStartDate] = useState('');
-    const [endDate, setEndDate] = useState('');
+    const [currentStartDate, setCurrentStartDate] = useState(startDate ? startDate.slice(0, 10) : '');
+    const [currentFinishedDate, setCurrentFinishedDate] = useState(finishedDate ? finishedDate.slice(0, 10) : '');
+    const [currentNotes, setCurrentNotes] = useState(notes || '');
 
     return (
         <div className="GameDetails">
@@ -57,18 +57,18 @@ function GameDetails({ id, title, imgSrc, score, hoursPlayed, rolledCredits, not
                             <input
                                 type="date"
                                 id="start-date"
-                                value={startDate}
-                                onChange={(e) => setStartDate(e.target.value)}
+                                value={currentStartDate}
+                                onChange={(e) => setCurrentStartDate(e.target.value)}
                             />
                         </article>
 
                         <article>
-                            <label htmlFor="end-date">End Date:</label>
+                            <label htmlFor="end-date">Finished Date:</label>
                             <input
                                 type="date"
                                 id="end-date"
-                                value={endDate}
-                                onChange={(e) => setEndDate(e.target.value)}
+                                value={currentFinishedDate}
+                                onChange={(e) => setCurrentFinishedDate(e.target.value)}
                             />
                         </article>
                     </div>
@@ -109,9 +109,11 @@ function GameDetails({ id, title, imgSrc, score, hoursPlayed, rolledCredits, not
                             id: id.toString(), // backend expects string
                             score: currentScore ? parseInt(currentScore, 10) : null,
                             hoursPlayed: currentHours ? parseInt(currentHours, 10) : null,
+                            startDate: currentStartDate || null,
+                            finishedDate: currentFinishedDate || null,
                             rolledCredits: creditsRolled,
-                            title, // optional
-                            // backlogStatus, releaseYear could be added later
+                            notes: currentNotes
+                            // backlogStatus, title and image will be added later
                         });
                     }}
                 >

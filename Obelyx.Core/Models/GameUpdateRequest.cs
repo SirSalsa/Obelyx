@@ -1,4 +1,6 @@
-﻿namespace Obelyx.Core.Models
+﻿using Obelyx.Core.Enums;
+
+namespace Obelyx.Core.Models
 {
     /// <summary>
     /// Update an existing game in the database.
@@ -8,10 +10,13 @@
         public required string Id { get; set; }
 
         public string? Title { get; set; }
-        public int? ReleaseYear { get; set; }
-        public string BacklogStatus { get; set; } = string.Empty;
+        public BacklogStatus? BacklogStatus { get; set; }
+        public string? CoverImageUrl { get; set; }
+        public DateTime? StartDate { get; set; }
+        public DateTime? FinishedDate { get; set; }
         public int? Score { get; set; }
         public int? HoursPlayed { get; set; }
         public bool RolledCredits { get; set; } = false;
+        public string? Notes { get; set; }
     }
 }
