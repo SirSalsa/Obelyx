@@ -26,10 +26,12 @@ namespace Obelyx.Data.Services
                 Id = Guid.NewGuid(),
                 Title = request.Title,
                 BacklogStatus = status,
+                StartDate = request.StartDate,
+                FinishedDate = request.FinishedDate,
                 Score = request.Score,
                 HoursPlayed = request.HoursPlayed,
-                RolledCredits = request.RolledCredits
-                //Notes = request.Notes - To be added
+                RolledCredits = request.RolledCredits,
+                Notes = request.Notes
             };
 
             _appDbContext.Games.Add(game);

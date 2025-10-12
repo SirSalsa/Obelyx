@@ -24,7 +24,8 @@ function AddGame() {
         fileInputRef.current.value = null;
         document.querySelector('input[title="Title"]').value = "";
         document.querySelector('select[name="status"]').value = "";
-        document.querySelector('input[title="Release Year"]').value = "";
+        document.querySelector('input[title="Start Date"]').value = "";
+        document.querySelector('input[title="Finished Date"]').value = "";
         document.querySelector('input[title="Score"]').value = "";
         document.querySelector('input[title="Hours Played"]').value = "";
         document.querySelector('input[type="checkbox"]').checked = false;
@@ -36,11 +37,12 @@ function AddGame() {
             const gameData = {
                 title: document.querySelector('input[title="Title"]').value,
                 status: document.querySelector('select[name="status"]').value,
-                releaseYear: parseInt(document.querySelector('input[title="Release Year"]').value) || null,
+                startDate: document.querySelector('input[title="Start Date"]').value || null,
+                finishedDate: document.querySelector('input[title="Finished Date"]').value || null,
                 score: parseInt(document.querySelector('input[title="Score"]').value) || null,
                 hoursPlayed: parseInt(document.querySelector('input[title="Hours Played"]').value) || null,
                 rolledCredits: document.querySelector('input[type="checkbox"]').checked,
-                notes: document.querySelector('textarea[title="Notes"]').value
+                notes: document.querySelector('textarea[title="Notes"]').value || null
             };
 
             const formData = new FormData();
@@ -93,7 +95,10 @@ function AddGame() {
                         <option value="completed">Completed</option>
                         <option value="dropped">Dropped</option>
                     </select>
-                    <input type="text" title="Release Year" placeholder="Enter release year" />
+                    <label for="start-date">Start Date</label>
+                    <input type="date" id="start-date" title="Start Date" name="start-date" />
+                    <label for="end-date">Finished Date</label>
+                    <input type="date" id="end-date" title="Finished Date" name="end-date" />
                     <input type="number" title="Score" placeholder="Enter score (0-5)" min="0" max="5" />
                     <input type="number" title="Hours Played" placeholder="Enter hours played" min="0" />
                     <label>
