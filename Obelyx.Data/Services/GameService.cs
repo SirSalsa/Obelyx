@@ -26,7 +26,6 @@ namespace Obelyx.Data.Services
                 Id = Guid.NewGuid(),
                 Title = request.Title,
                 BacklogStatus = status,
-                ReleaseYear = request.ReleaseYear,
                 Score = request.Score,
                 HoursPlayed = request.HoursPlayed,
                 RolledCredits = request.RolledCredits
@@ -54,8 +53,6 @@ namespace Obelyx.Data.Services
             // Apply sorting (before Skip/Take)
             query = request.SortBy switch
             {
-                "ReleaseDate" => query.OrderBy(g => g.ReleaseYear == null)
-                                       .ThenBy(g => g.ReleaseYear),
                 "Score" => query.OrderBy(g => g.Score == null)
                                 .ThenByDescending(g => g.Score),
                 "HoursPlayed" => query.OrderBy(g => g.HoursPlayed == null)
@@ -105,7 +102,6 @@ namespace Obelyx.Data.Services
 
             // Update game entry based on what is not null
             game.Title = string.IsNullOrEmpty(request.Title) ? game.Title : request.Title;
-            game.ReleaseYear = request.ReleaseYear ?? game.ReleaseYear;
             game.Score = request.Score ?? game.Score;
             game.HoursPlayed = request.HoursPlayed ?? game.HoursPlayed;
             game.BacklogStatus = string.IsNullOrEmpty(request.BacklogStatus)
