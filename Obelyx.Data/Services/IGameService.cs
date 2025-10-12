@@ -12,5 +12,6 @@ namespace Obelyx.Data.Services
         Task<Game> UpdateGameAsync(GameUpdateRequest request);
         Task<bool> DeleteGameAsync(Guid guid);
         Task<Game> UpdateCoverAsync(Guid id, IFormFile coverImage);
+        Task<bool> ArchiveGameAsync(Guid guid);
     }
 }

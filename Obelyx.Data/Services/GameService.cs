@@ -175,5 +175,21 @@ namespace Obelyx.Data.Services
             return game;
         }
 
+        public async Task<bool> ArchiveGameAsync(Guid guid)
+        {
+            var game = _appDbContext.Games.FirstOrDefault(g => g.Id == guid);
+
+            if (game == null)
+            {
+                return false;
+            }
+
+            game.IsArchived = true;
+
+            _appDbContext.Games.Update(game);
+            await _appDbContext.SaveChangesAsync();
+
+            return true;
+        }
     }
 }

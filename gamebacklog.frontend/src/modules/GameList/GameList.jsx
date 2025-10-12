@@ -66,6 +66,23 @@ function GameList() {
     }
   };
 
+  const handleArchive = async (gameId) => {
+    try {
+      let response = await fetch(`https://localhost:7125/api/games/archive?guid=${gameId}`, {
+        method: "POST",
+      });
+
+      if (response.status == 200) {
+        // Remove the game from the local list
+        setGames((prev) => prev.filter((g) => g.id !== gameId));
+        setSelectedGame(null);
+        return;
+      }
+    } catch (err) {
+      console.error("Error archiving game:", err);
+    }
+  };
+
   const handleClear = () => {
     document.querySelector('input[placeholder="Game Title..."]').value = "";
     document.getElementById('status').value = "";
@@ -151,6 +168,7 @@ function GameList() {
               finishedDate={selectedGame.finishedDate}
               rolledCredits={selectedGame.rolledCredits}
               notes={selectedGame.notes}
+              onArchive={handleArchive}
               onUpdate={handleUpdate}
               onClose={() => setSelectedGame(null)}
             />

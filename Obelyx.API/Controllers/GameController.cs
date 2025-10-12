@@ -104,6 +104,30 @@ namespace Obelyx.API.Controllers
         }
 
         /// <summary>
+        /// Archive the specified game entry, hiding it from the client.
+        /// </summary>
+        /// <param name="guid"></param>
+        /// <returns></returns>
+        [HttpPost]
+        [Route("Archive")]
+        public async Task<IActionResult> ArchiveGame([FromQuery] string guid)
+        {
+            if (string.IsNullOrEmpty(guid) || !Guid.TryParse(guid, out var parsedGuid))
+            {
+                return BadRequest("Guid is empty or invalid.");
+            }
+
+            var response = await _gameService.ArchiveGameAsync(parsedGuid);
+
+            if (response == false)
+            {
+                return NotFound($"Game with id {parsedGuid} not found.");
+            }
+
+            return Ok("Archived game successfully!");
+        }
+
+        /// <summary>
         /// Delete the specified game entry.
         /// </summary>
         /// <param name="guid"></param>

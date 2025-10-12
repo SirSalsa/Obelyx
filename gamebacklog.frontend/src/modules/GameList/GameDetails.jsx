@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import './GameList.scss';
 
-function GameDetails({ id, title, imgSrc, score, hoursPlayed, startDate, finishedDate, rolledCredits, notes, onUpdate, onClose }) {
+function GameDetails({ id, title, imgSrc, score, hoursPlayed, startDate, finishedDate, rolledCredits, notes, onArchive, onUpdate, onClose }) {
     // Local state for editable fields
     const [currentScore, setCurrentScore] = useState(score || '');
     const [currentHours, setCurrentHours] = useState(hoursPlayed || 0);
@@ -101,7 +101,7 @@ function GameDetails({ id, title, imgSrc, score, hoursPlayed, startDate, finishe
 
             {/* Buttons */}
             <div className="GameDetailsButtons">
-                <button id="archive-game">Archive</button>
+                <button id="archive-game" onClick={() => onArchive(id)}>Archive</button>
                 <button
                     id="save-game"
                     onClick={() => {
