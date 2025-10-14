@@ -3,16 +3,19 @@ using Obelyx.Core.Enums;
 using Obelyx.Core.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Hosting;
 
 namespace Obelyx.Data.Services
 {
     public class GameService : IGameService
     {
         private readonly ObelyxContext _appDbContext;
+        private readonly IWebHostEnvironment _env;
 
-        public GameService(ObelyxContext appDbContext)
+        public GameService(ObelyxContext appDbContext, IWebHostEnvironment env)
         {
             _appDbContext = appDbContext;
+            _env = env;
         }
 
         public async Task<Game> CreateGameAsync(GameAddRequest request)
@@ -132,6 +135,33 @@ namespace Obelyx.Data.Services
             if (game == null)
             {
                 return false;
+            }
+
+            // Remove image file from storage if present
+            if (!string.IsNullOrWhiteSpace(game.ImagePath))
+            {
+                // Replace image slashes in image path to OS-specific separators
+                var relativePath = game.ImagePath.TrimStart('/').Replace('/', Path.DirectorySeparatorChar);
+
+                var fullImagePath = Path.Combine(_env.WebRootPath, relativePath);
+
+                try
+                {
+                    if (File.Exists(fullImagePath))
+                    {
+                        File.Delete(fullImagePath);
+                    }
+
+                    game.ImagePath = null;
+                }
+                catch (IOException ex)
+                {
+                    // TODO: log exception
+                }
+                catch (UnauthorizedAccessException ex)
+                {
+                    // TODO: log exception
+                }
             }
 
             _appDbContext.Games.Remove(game);
