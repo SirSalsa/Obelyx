@@ -29,12 +29,12 @@ main {
     input[type="text"] {
         width: 100%;
         padding: 0.5rem;
-        border: 1px solid $color-border;
+        border: 1px solid $color-foreground;
         border-radius: 4px;
         font-size: 1rem;
         box-sizing: border-box; // Include padding and border in width calculation
         background-color: $color-foreground;
-        color: $color-text-primary;
+        color: $color-text;
     }
 
     select {
@@ -46,11 +46,11 @@ main {
         font-size: 1rem;
         box-sizing: border-box; // Ensure consistent width
         background-color: $color-foreground;
-        color: $color-text-primary;
+        color: $color-text;
     }
 
     #min-score {
-        color: $color-text-secondary;
+        color: $color-text-muted;
     }
 
     label {
@@ -58,22 +58,22 @@ main {
         display: flex;
         align-items: center;
         gap: 0.5rem; // Add spacing between label text and input
-        color: $color-text-secondary;
+        color: $color-text-muted;
     }
 
     input[type="checkbox"] {
         transform: scale(1.2); // Slightly enlarge checkboxes for better usability
-        accent-color: $color-primary;
+        accent-color: $color-accent;
 
         &:hover {
-            box-shadow: 0 0 0 2px rgba($color-primary, 0.3);
+            box-shadow: 0 0 0 2px rgba($color-accent, 0.3);
         }
     }
 
     hr {
         width: 100%;
         border: none;
-        border-top: 1px solid $color-border; // Neutral divider
+        border-top: 1px solid $color-foreground;
         margin: 1rem 0;
     }
 
@@ -93,23 +93,23 @@ main {
         }
 
         #clear-filters {
-            border: 1px solid $color-border; // Border for "Clear Filters"
-            background-color: transparent; // Secondary color for "Clear Filters"
-            color: $color-text-secondary;
+            border: 1px solid $color-overlay;
+            background-color: $color-foreground;
+            color: $color-text-muted;
 
             &:hover {
-                background-color: color.adjust($color-secondary, $lightness: 10%);
+                background-color: color.adjust($color-accent-alt, $lightness: 10%);
                 box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
             }
         }
 
         #search {
             border: none;
-            background-color: $color-primary; // Primary color for "Search"
-            color: $color-text-primary;
+            background-color: $color-accent;
+            color: $color-text;
 
             &:hover {
-                background-color: color.adjust($color-primary, $lightness: 10%);
+                background-color: color.adjust($color-accent, $lightness: 10%);
                 box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); // Subtle shadow on hover
             }
         }
@@ -155,8 +155,8 @@ main {
                     position: absolute; // Position relative to the .GameCardImageContainer
                     bottom: 10px; // Offset from the bottom of the image
                     right: 10px; // Offset from the right of the image
-                    background-color: $color-overlay-transparent;
-                    color: $color-secondary;
+                    background-color: $color-overlay;
+                    color: $color-accent-alt;
                     width: 40px;
                     height: 40px;
                     display: flex;
@@ -191,7 +191,7 @@ main {
         flex-direction: column; // stack main area + notes + buttons vertically
         gap: 1.5rem;
         background-color: $color-foreground;
-        color: $color-text-primary;
+        color: $color-text;
         border-radius: 10px;
         padding: 2rem;
         margin: 2rem auto;
@@ -257,7 +257,7 @@ main {
             input[type="date"],
             select {
                 background-color: $color-background;
-                color: $color-text-primary;
+                color: $color-text;
                 border: none;
                 border-radius: 5px;
                 padding: 0.5rem;
@@ -275,7 +275,7 @@ main {
         #notes {
             width: 100%;
             background: $color-background;
-            color: $color-text-primary;
+            color: $color-text;
             border: none;
             border-radius: 5px;
             padding: 0.5rem;
@@ -293,7 +293,7 @@ main {
             width: 100%;
 
             button {
-                color: $color-text-primary;
+                color: $color-text;
                 border: none;
                 border-radius: 5px;
                 padding: 0.5rem 1rem;
@@ -310,18 +310,18 @@ main {
             }
 
             #save-game {
-                background: $color-primary;
+                background: $color-accent;
 
                 &:hover {
-                    background: color.adjust($color-primary, $lightness: 10%);
+                    background: color.adjust($color-accent, $lightness: 10%);
                 }
             }
 
             #close-details {
-                background: $color-secondary;
+                background: $color-accent-alt;
 
                 &:hover {
-                    background: color.adjust($color-secondary, $lightness: 10%);
+                    background: color.adjust($color-accent-alt, $lightness: 10%);
                 }
             }
         }

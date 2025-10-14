@@ -1,27 +1,21 @@
 // ==========================
-// Theme Variables (default theme)
+// Theme Colors (Default Dark Mode)
 // ==========================
 
-// Backgrounds
+// Base
 $color-background: #242424;
 $color-foreground: #2c2c2c;
-
-// Overlays
-$color-overlay: #141414;
-$color-overlay-transparent: rgba($color-overlay, 0.9);
+$color-overlay: rgba(#141414, 0.9);
 
 // Text
-$color-text-primary: #ffffff;
-$color-text-secondary: #a0a0a0;
-
-// Borders / Dividers
-$color-border: #3a3a3a;
+$color-text: #ffffff;
+$color-text-muted: #a0a0a0;
 
 // Accents
-$color-primary: #3b82f6; // main accent
-$color-secondary: #64748b; // optional accent
+$color-accent: #3b82f6; // main accent
+$color-accent-alt: #64748b; // optional accent
 
-// States
+// System
 $color-success: #10b981;
 $color-warning: #fbbf24;
 $color-error: #ef4444;
@@ -44,5 +38,5 @@ body {
   font-family: $font-family-base;
   line-height: $line-height-base;
   font-weight: $font-weight-normal;
-  color: $color-text-primary;
+  color: $color-text;
 }
