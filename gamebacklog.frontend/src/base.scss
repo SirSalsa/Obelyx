@@ -1,19 +1,21 @@
+@use "sass:color";
+
 // ==========================
-// Theme Colors (Default Dark Mode)
+// Theme Colors (Default Dark Mode / Coastal Theme)
 // ==========================
 
 // Base
-$color-background: #242424;
-$color-foreground: #2c2c2c;
-$color-overlay: rgba(#141414, 0.9);
+$color-foreground: #2a2d49;
+$color-background: #1e213a;
+$color-overlay: rgba(color.adjust($color-background, $lightness: -10%), 0.9);
 
 // Text
-$color-text: #ffffff;
-$color-text-muted: #a0a0a0;
+$color-text: #c1ecee;
+$color-text-muted: #8facad;
 
 // Accents
-$color-accent: #3b82f6; // main accent
-$color-accent-alt: #64748b; // optional accent
+$color-accent: #ef3b4f; // main accent
+$color-accent-alt: #c40026; // optional accent
 
 // System
 $color-success: #10b981;

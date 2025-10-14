@@ -156,7 +156,7 @@ main {
                     bottom: 10px; // Offset from the bottom of the image
                     right: 10px; // Offset from the right of the image
                     background-color: $color-overlay;
-                    color: $color-accent-alt;
+                    color: $color-accent;
                     width: 40px;
                     height: 40px;
                     display: flex;
@@ -302,7 +302,7 @@ main {
             }
 
             #archive-game {
-                background: $color-error;
+                background: $color-overlay;
 
                 &:hover {
                     background: color.adjust($color-error, $lightness: 10%);
