@@ -1,7 +1,9 @@
-using System.Reflection;
+using Microsoft.EntityFrameworkCore;
 using Obelyx.Data;
 using Obelyx.Data.Services;
-using Microsoft.EntityFrameworkCore;
+using System.Reflection;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -17,7 +19,13 @@ builder.Services.AddDbContext<ObelyxContext>(options =>
 builder.Services.AddScoped<IGameService, GameService>();
 
 // Controllers
-builder.Services.AddControllers();
+builder.Services.AddControllers()
+    .AddJsonOptions(options =>
+    {
+        options.JsonSerializerOptions.Converters.Add(
+            new JsonStringEnumConverter(JsonNamingPolicy.CamelCase)
+        );
+    });
 
 // CORS (allow frontend clients)
 builder.Services.AddCors(options =>

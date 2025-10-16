@@ -3,6 +3,7 @@ import './GameList.scss';
 
 function GameDetails({ id, title, imgSrc, score, hoursPlayed, startDate, finishedDate, rolledCredits, notes, onArchive, onUpdate, onClose }) {
     // Local state for editable fields
+    const [currentBacklogStatus, setCurrentBacklogStatus] = useState('none');
     const [currentScore, setCurrentScore] = useState(score || '');
     const [currentHours, setCurrentHours] = useState(hoursPlayed || 0);
     const [creditsRolled, setCreditsRolled] = useState(rolledCredits || false);
@@ -24,6 +25,24 @@ function GameDetails({ id, title, imgSrc, score, hoursPlayed, startDate, finishe
 
                     {/* Game details form */}
                     <div className="GameDetailsForm">
+                        <article>
+                            <label htmlFor="backlog-status">Backlog Status:</label>
+                            <select
+                                name="backlog-status"
+                                id="backlog-status"
+                                value={currentBacklogStatus}
+                                onChange={(e) => setCurrentBacklogStatus(e.target.value)}
+                            >
+                                <option value="none">-</option>
+                                <option value="wishlist">Wishlist</option>
+                                <option value="planned">Planned</option>
+                                <option value="playing">Playing</option>
+                                <option value="paused">Paused</option>
+                                <option value="completed">Completed</option>
+                                <option value="dropped">Dropped</option>
+                            </select>
+                        </article>
+
                         <article>
                             <label htmlFor="score">Score:</label>
                             <select
@@ -107,13 +126,14 @@ function GameDetails({ id, title, imgSrc, score, hoursPlayed, startDate, finishe
                     onClick={() => {
                         onUpdate({
                             id: id.toString(), // backend expects string
+                            backlogStatus: currentBacklogStatus,
                             score: currentScore ? parseInt(currentScore, 10) : null,
                             hoursPlayed: currentHours ? parseInt(currentHours, 10) : null,
                             startDate: currentStartDate || null,
                             finishedDate: currentFinishedDate || null,
                             rolledCredits: creditsRolled,
                             notes: currentNotes
-                            // backlogStatus, title and image will be added later
+                            // title and image will be added later
                         });
                     }}
                 >
