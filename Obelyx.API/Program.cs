@@ -17,6 +17,7 @@ builder.Services.AddDbContext<ObelyxContext>(options =>
 
 // Application services
 builder.Services.AddScoped<IGameService, GameService>();
+builder.Services.AddScoped<IImageService, ImageService>();
 
 // Controllers
 builder.Services.AddControllers()

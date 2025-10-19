@@ -39,12 +39,7 @@ namespace Obelyx.API.Controllers
                 return BadRequest("Title cannot be empty.");
             }
 
-            var createdGame = await _gameService.CreateGameAsync(request);
-
-            if (form.CoverImage != null)
-            {
-                createdGame = await _gameService.UpdateCoverAsync(createdGame.Id, form.CoverImage);
-            }
+            var createdGame = await _gameService.CreateGameAsync(request, form.CoverImage);
 
             return Ok(createdGame);
         }
@@ -98,7 +93,7 @@ namespace Obelyx.API.Controllers
                 return BadRequest("Id is empty or invalid.");
             }
 
-            var game = await _gameService.UpdateGameAsync(updateModel);
+            var game = await _gameService.UpdateGameAsync(updateModel, null);
 
             return Ok(game);
         }
@@ -149,7 +144,5 @@ namespace Obelyx.API.Controllers
 
             return Ok();
         }
-
-        // TODO: Endpoint to remove orphan images / imagepaths
     }
 }

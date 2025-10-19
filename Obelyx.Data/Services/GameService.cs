@@ -3,22 +3,21 @@ using Obelyx.Core.Enums;
 using Obelyx.Core.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.AspNetCore.Hosting;
 
 namespace Obelyx.Data.Services
 {
     public class GameService : IGameService
     {
         private readonly ObelyxContext _appDbContext;
-        private readonly IWebHostEnvironment _env;
+        private readonly IImageService _imageService;
 
-        public GameService(ObelyxContext appDbContext, IWebHostEnvironment env)
+        public GameService(ObelyxContext appDbContext, IImageService imageService)
         {
             _appDbContext = appDbContext;
-            _env = env;
+            _imageService = imageService;
         }
 
-        public async Task<Game> CreateGameAsync(GameAddRequest request)
+        public async Task<Game> CreateGameAsync(GameAddRequest request, IFormFile? image)
         {
             // Parsing status from string value
             BacklogStatus status;
@@ -36,6 +35,13 @@ namespace Obelyx.Data.Services
                 RolledCredits = request.RolledCredits,
                 Notes = request.Notes
             };
+
+            // Save cover image if present
+            if (image != null)
+            {
+                var imageUrl = await _imageService.UpdateImage(game, image);
+                game.ImagePath = imageUrl ?? game.ImagePath;
+            }
 
             _appDbContext.Games.Add(game);
 
@@ -101,7 +107,7 @@ namespace Obelyx.Data.Services
             return games;
         }
 
-        public async Task<Game> UpdateGameAsync(GameUpdateRequest request)
+        public async Task<Game> UpdateGameAsync(GameUpdateRequest request, IFormFile? image)
         {
             var translatedGuid = Guid.Parse(request.Id);
 
@@ -122,6 +128,13 @@ namespace Obelyx.Data.Services
             game.RolledCredits = request.RolledCredits; // always has a value
             game.Notes = request.Notes ?? game.Notes;
 
+            // Update cover image
+            if (image != null)
+            {
+                var imageUrl = await _imageService.UpdateImage(game, image);
+                game.ImagePath = imageUrl ?? game.ImagePath;
+            }
+
             _appDbContext.Games.Update(game);
             await _appDbContext.SaveChangesAsync();
 
@@ -137,72 +150,12 @@ namespace Obelyx.Data.Services
                 return false;
             }
 
-            // Remove image file from storage if present
-            if (!string.IsNullOrWhiteSpace(game.ImagePath))
-            {
-                // Replace image slashes in image path to OS-specific separators
-                var relativePath = game.ImagePath.TrimStart('/').Replace('/', Path.DirectorySeparatorChar);
-
-                var fullImagePath = Path.Combine(_env.WebRootPath, relativePath);
-
-                try
-                {
-                    if (File.Exists(fullImagePath))
-                    {
-                        File.Delete(fullImagePath);
-                    }
-
-                    game.ImagePath = null;
-                }
-                catch (IOException ex)
-                {
-                    // TODO: log exception
-                }
-                catch (UnauthorizedAccessException ex)
-                {
-                    // TODO: log exception
-                }
-            }
+            _imageService.DeleteImage(game.ImagePath);
 
             _appDbContext.Games.Remove(game);
             await _appDbContext.SaveChangesAsync();
 
             return true;
-        }
-
-        public async Task<Game> UpdateCoverAsync(Guid guid, IFormFile coverImage)
-        {
-            var game = await _appDbContext.Games.FirstOrDefaultAsync(g => g.Id == guid);
-
-            if (game == null)
-            {
-                throw new KeyNotFoundException($"Game with id {guid} not found.");
-            }
-
-            if (coverImage != null && coverImage.Length > 0)
-            {
-                var uploadsFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "images", "covers");
-
-                if (!Directory.Exists(uploadsFolder))
-                {
-                    Directory.CreateDirectory(uploadsFolder);
-                }
-
-                // Cover image inherits game guid
-                var uniqueFileName = $"{guid}{Path.GetExtension(coverImage.FileName)}";
-                var filePath = Path.Combine(uploadsFolder, uniqueFileName);
-
-                using (var fileStream = new FileStream(filePath, FileMode.Create))
-                {
-                    await coverImage.CopyToAsync(fileStream);
-                }
-
-                game.ImagePath = $"/images/covers/{uniqueFileName}";
-                _appDbContext.Games.Update(game);
-                await _appDbContext.SaveChangesAsync();
-            }
-
-            return game;
         }
 
         public async Task<bool> ArchiveGameAsync(Guid guid)
