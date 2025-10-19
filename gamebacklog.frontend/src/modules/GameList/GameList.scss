@@ -206,13 +206,6 @@ main {
             justify-content: center;
             gap: 2rem;
             width: 100%;
-
-            h2 {
-                width: 100%;
-                text-align: center;
-                grid-column: 1 / -1;
-                margin-bottom: 1rem;
-            }
         }
 
         .GameDetailsImage img {
@@ -229,6 +222,38 @@ main {
             column-gap: 2rem;
             row-gap: 1rem;
             text-align: left;
+
+            .GameDetailsHeader {
+                grid-column: 1 / -1;
+                text-align: center;
+
+                height: 2.5rem;
+                display: flex;
+                justify-self: center;
+                align-items: center;
+
+                .game-title {
+                    font-weight: 500;
+                    cursor: pointer;
+
+                    &:hover {
+                        text-decoration: underline;
+                        opacity: 0.9;
+                    }
+                }
+
+                .editable-title {
+                    font: inherit;
+                    color: inherit;
+                    background: $color-background;
+                    border: 1px solid $color-foreground;
+                    border-radius: 3px;
+                    padding: 0.25rem 0.5rem;
+                    height: 2.5rem; // explicit box height
+                    box-sizing: border-box;
+                    text-align: center;
+                }
+            }
 
             .GameDetailsForm {
                 grid-column: 1 / 2;

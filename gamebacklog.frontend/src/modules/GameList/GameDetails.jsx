@@ -3,6 +3,7 @@ import './GameList.scss';
 
 function GameDetails({ id, title, imgSrc, score, hoursPlayed, startDate, finishedDate, rolledCredits, notes, onArchive, onUpdate, onClose }) {
     // Local state for editable fields
+    const [currentTitle, setCurrentTitle] = useState(title || '');
     const [currentBacklogStatus, setCurrentBacklogStatus] = useState('none');
     const [currentScore, setCurrentScore] = useState(score || '');
     const [currentHours, setCurrentHours] = useState(hoursPlayed || 0);
@@ -10,6 +11,14 @@ function GameDetails({ id, title, imgSrc, score, hoursPlayed, startDate, finishe
     const [currentStartDate, setCurrentStartDate] = useState(startDate ? startDate.slice(0, 10) : '');
     const [currentFinishedDate, setCurrentFinishedDate] = useState(finishedDate ? finishedDate.slice(0, 10) : '');
     const [currentNotes, setCurrentNotes] = useState(notes || '');
+
+    const [isEditingTitle, setIsEditingTitle] = useState(false);
+
+    const handleTitleClick = () => setIsEditingTitle(true);
+    const handleBlur = () => {
+        setIsEditingTitle(false);
+        setCurrentTitle(currentTitle);
+    }
 
     return (
         <div className="GameDetails">
@@ -21,7 +30,25 @@ function GameDetails({ id, title, imgSrc, score, hoursPlayed, startDate, finishe
 
                 {/* Right side */}
                 <div className="GameDetailsInfo">
-                    <h2>{title}</h2>
+
+                    {/* Editable title */}
+                    <div className="GameDetailsHeader">
+                        {isEditingTitle ? (
+                            <input
+                                type="text"
+                                value={currentTitle}
+                                onChange={(e) => setCurrentTitle(e.target.value)}
+                                onBlur={handleBlur}
+                                onKeyDown={(e) => e.key === 'Enter' && e.target.blur()}
+                                autoFocus
+                                className="editable-title"
+                            />
+                        ) : (
+                            <h2 onClick={handleTitleClick} className="game-title">
+                                {currentTitle}
+                            </h2>
+                        )}
+                    </div>
 
                     {/* Game details form */}
                     <div className="GameDetailsForm">
@@ -126,6 +153,7 @@ function GameDetails({ id, title, imgSrc, score, hoursPlayed, startDate, finishe
                     onClick={() => {
                         onUpdate({
                             id: id.toString(), // backend expects string
+                            title: currentTitle,
                             backlogStatus: currentBacklogStatus,
                             score: currentScore ? parseInt(currentScore, 10) : null,
                             hoursPlayed: currentHours ? parseInt(currentHours, 10) : null,
