@@ -32,9 +32,9 @@ The development of Obelyx was guided by a simple vision:
 >*Build a self-hosted program using modern .NET, REST APIs, and a React-based frontend that can replace my current backlog tracking in Google Sheets.*
 
 ## Why "Obelyx"? 
-The name **Obelyx** is a adaptation of *Obelisk*, a monument that much like your game backlog, stands the test of time. 
+The name **Obelyx** comes from *Obelisk* — a monument that, much like your game backlog, stands the test of time. 
 
-In my experience, clearing out one's backlog is like overcoming a challenge, not unlike climbing or building an obelisk. It takes patience, motivation and the desire to overcome even the smallest of challenges that life might throw at you.
+Conquering it is an adventure in itself, not unlike building the monuments of old. It takes patience, motivation, and the drive to overcome even the smallest challenges life throws your way.
 
 
 ## Installation
