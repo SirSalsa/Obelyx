@@ -6,7 +6,7 @@ namespace Obelyx.Core.Models
     /// <summary>
     /// Wrapper for game data and cover image.
     /// </summary>
-    public class CreateGameForm
+    public class GameRequestForm
     {
         [FromForm(Name = "gameData")]
         public string GameData { get; set; } = string.Empty;

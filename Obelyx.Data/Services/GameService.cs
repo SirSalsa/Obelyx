@@ -118,9 +118,13 @@ namespace Obelyx.Data.Services
                 throw new KeyNotFoundException($"Game with id {translatedGuid} not found.");
             }
 
+            // Parsing status from string value
+            BacklogStatus status;
+            Enum.TryParse(request.BacklogStatus, true, out status);
+
             // Update game entry based on what is not null
             game.Title = string.IsNullOrEmpty(request.Title) ? game.Title : request.Title;
-            game.BacklogStatus = request.BacklogStatus ?? game.BacklogStatus;
+            game.BacklogStatus = status;
             game.StartDate = request.StartDate ?? game.StartDate;
             game.FinishedDate = request.FinishedDate ?? game.FinishedDate;
             game.Score = request.Score ?? game.Score;

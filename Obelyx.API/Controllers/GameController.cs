@@ -23,7 +23,7 @@ namespace Obelyx.API.Controllers
         /// <returns></returns>
         [HttpPost]
         [Route("")]
-        public async Task<IActionResult> CreateGame([FromForm] CreateGameForm form)
+        public async Task<IActionResult> CreateGame([FromForm] GameRequestForm form)
         {
             if (string.IsNullOrWhiteSpace(form.GameData))
             {
@@ -85,15 +85,25 @@ namespace Obelyx.API.Controllers
         /// <summary>
         /// Update the metadata of the game entry.
         /// </summary>
-        [HttpPut]
-        public async Task<IActionResult> UpdateLogEntry([FromBody] GameUpdateRequest updateModel)
+        [HttpPost]
+        [Route("Update")]
+        public async Task<IActionResult> UpdateGame([FromForm] GameRequestForm form)
         {
-            if (string.IsNullOrEmpty(updateModel.Id))
+            if (string.IsNullOrWhiteSpace(form.GameData))
             {
-                return BadRequest("Id is empty or invalid.");
+                return BadRequest("Game data is required.");
             }
 
-            var game = await _gameService.UpdateGameAsync(updateModel, null);
+            var request = JsonSerializer.Deserialize<GameUpdateRequest>(
+                form.GameData,
+                new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+
+            if (request is null || string.IsNullOrEmpty(request.Id))
+            {
+                return BadRequest("Id cannot be empty.");
+            }
+
+            var game = await _gameService.UpdateGameAsync(request, form.CoverImage);
 
             return Ok(game);
         }

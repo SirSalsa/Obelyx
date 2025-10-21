@@ -208,10 +208,17 @@ main {
             width: 100%;
         }
 
-        .GameDetailsImage img {
-            width: 200px;
-            height: auto;
-            border-radius: 8px;
+        .GameDetailsImage {
+            img {
+                width: 200px;
+                height: auto;
+                border-radius: 8px;
+                cursor: pointer;
+            }
+
+            input[type="file"] {
+                display: none;
+            }
         }
 
         .GameDetailsInfo {

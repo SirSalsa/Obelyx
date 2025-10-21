@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import './GameList.scss';
 
 function GameDetails({ id, title, imgSrc, score, hoursPlayed, startDate, finishedDate, rolledCredits, notes, onArchive, onUpdate, onClose }) {
@@ -12,20 +12,51 @@ function GameDetails({ id, title, imgSrc, score, hoursPlayed, startDate, finishe
     const [currentFinishedDate, setCurrentFinishedDate] = useState(finishedDate ? finishedDate.slice(0, 10) : '');
     const [currentNotes, setCurrentNotes] = useState(notes || '');
 
+    // Title
     const [isEditingTitle, setIsEditingTitle] = useState(false);
-
     const handleTitleClick = () => setIsEditingTitle(true);
     const handleBlur = () => {
         setIsEditingTitle(false);
         setCurrentTitle(currentTitle);
-    }
+    };
+
+    // Image
+    const [imageSrc, setImageSrc] = useState(imgSrc);
+    const [selectedFile, setSelectedFile] = useState(null);
+    const fileInputRef = useRef(null);
+    const handleImageClick = () => {
+        fileInputRef.current.click(); // Trigger hidden file input click
+    };
+    const handleFileChange = (e) => {
+        const file = e.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onloadend = () => {
+                setImageSrc(reader.result);
+            };
+            reader.readAsDataURL(file); // Convert image file to base64 string
+
+            // Save the real file for upload
+            setSelectedFile(file);
+        }
+    };
 
     return (
         <div className="GameDetails">
             <div className="GameDetailsTop">
                 {/* Left side */}
                 <div className="GameDetailsImage">
-                    <img src={imgSrc} alt={`${title} Cover`} />
+                    <img
+                        src={imageSrc}
+                        alt={`${title} Cover`}
+                        onClick={handleImageClick}
+                    />
+                    <input
+                        type="file"
+                        accept="image/*"
+                        ref={fileInputRef}
+                        onChange={handleFileChange}
+                    />
                 </div>
 
                 {/* Right side */}
@@ -154,6 +185,8 @@ function GameDetails({ id, title, imgSrc, score, hoursPlayed, startDate, finishe
                         onUpdate({
                             id: id.toString(), // backend expects string
                             title: currentTitle,
+                            imgSrc: imageSrc, // used for preview only
+                            coverImageFile: selectedFile, // actual file to upload
                             backlogStatus: currentBacklogStatus,
                             score: currentScore ? parseInt(currentScore, 10) : null,
                             hoursPlayed: currentHours ? parseInt(currentHours, 10) : null,
@@ -161,7 +194,6 @@ function GameDetails({ id, title, imgSrc, score, hoursPlayed, startDate, finishe
                             finishedDate: currentFinishedDate || null,
                             rolledCredits: creditsRolled,
                             notes: currentNotes
-                            // title and image will be added later
                         });
                     }}
                 >

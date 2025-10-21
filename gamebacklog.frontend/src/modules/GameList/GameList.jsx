@@ -32,21 +32,30 @@ function GameList() {
 
   const handleUpdate = async (updatedGame) => {
     try {
-      const res = await fetch(`https://localhost:7125/api/games/`, {
-        method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          id: updatedGame.id,
-          title: updatedGame.title || null,
-          coverImageUrl: updatedGame.coverImageUrl || null,
-          startDate: updatedGame.startDate ? new Date(updatedGame.startDate).toISOString() : null,
-          finishedDate: updatedGame.finishedDate ? new Date(updatedGame.finishedDate).toISOString() : null,
-          backlogStatus: updatedGame.backlogStatus ?? null,
-          score: updatedGame.score || null,
-          hoursPlayed: updatedGame.hoursPlayed,
-          rolledCredits: updatedGame.rolledCredits,
-          notes: updatedGame.notes || null
-        }),
+      const gameData = {
+        id: updatedGame.id,
+        title: updatedGame.title || null,
+        startDate: updatedGame.startDate ? new Date(updatedGame.startDate).toISOString() : null,
+        finishedDate: updatedGame.finishedDate ? new Date(updatedGame.finishedDate).toISOString() : null,
+        backlogStatus: updatedGame.backlogStatus
+          ? updatedGame.backlogStatus.charAt(0).toUpperCase() + updatedGame.backlogStatus.slice(1)
+          : null,
+        score: updatedGame.score || null,
+        hoursPlayed: updatedGame.hoursPlayed,
+        rolledCredits: updatedGame.rolledCredits,
+        notes: updatedGame.notes || null
+      };
+
+      const formData = new FormData();
+      formData.append("gameData", JSON.stringify(gameData));
+
+      if (updatedGame.coverImageFile) {
+        formData.append("coverImage", updatedGame.coverImageFile);
+      }
+
+      const res = await fetch(`https://localhost:7125/api/games/update`, {
+        method: 'POST',
+        body: formData
       });
 
       if (!res.ok) throw new Error("Failed to update game");
@@ -131,16 +140,6 @@ function GameList() {
           <input type="checkbox" />
           Rolled Credits
         </label>
-        {/*
-        <label>
-          <input type="checkbox" />
-          Favorites Only
-        </label>
-        <label>
-          <input type="checkbox" />
-          Completed 100%
-        </label>
-        */}
         <hr />
         <div className="ButtonGroup">
           <button id="clear-filters" onClick={handleClear}>Clear Filters</button>
