@@ -111,7 +111,6 @@ function GameList() {
         <select name="status" id="status">
           <option value="" disabled selected>Status</option>
           <option value="all">All</option>
-          <option value="wishlist">Wishlist</option>
           <option value="planned">Planned</option>
           <option value="playing">Playing</option>
           <option value="paused">Paused</option>

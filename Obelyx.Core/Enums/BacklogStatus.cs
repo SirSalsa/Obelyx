@@ -3,7 +3,6 @@
     public enum BacklogStatus
     {
         None,
-        Wishlist,
         Planned,
         Playing,
         Paused,

@@ -92,7 +92,6 @@ function GameDetails({ id, title, imgSrc, score, hoursPlayed, startDate, finishe
                                 onChange={(e) => setCurrentBacklogStatus(e.target.value)}
                             >
                                 <option value="none">-</option>
-                                <option value="wishlist">Wishlist</option>
                                 <option value="planned">Planned</option>
                                 <option value="playing">Playing</option>
                                 <option value="paused">Paused</option>
