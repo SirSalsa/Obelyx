@@ -1,5 +1,7 @@
 # Obelyx
-**Obelyx** is a self hosted game backlog manager that helps users organize, track, and view their game collections.
+**Obelyx** is a self-hosted game backlog manager that helps users organize, track, and view their game collections.
+
+![Screenshot of Obelyx](Docs/screenshot.png)
 
 ## Overview
 **Obelyx** is a locally hosted suite of tools designed to help users manage their game libraries and keep track of what they’re playing, finished, or planning to start, similar in spirit to *MyAnimeList* or *IMDb*, but focused on games.
@@ -15,7 +17,7 @@
 - **C#**
 - **.NET 8**
 - **SQL Server**
-- **REST API architechture**
+- **REST API architecture**
 
 ### Frontend
 - **React (Vite)**
@@ -23,7 +25,7 @@
 - **Sass**
 
 ## Project Goals
-The goal of **Obelyx** is to provide a locally hosted and customizable way to manage your game backlog, without relying on third-party websites or cumbersome spreadsheets.
+The goal of **Obelyx** is to provide a locally hosted and customizable way to manage your game backlog without relying on third-party websites or cumbersome spreadsheets.
 
 **Obelyx** is built with privacy and personalization in mind. All data is stored locally on your machine and can be freely modified to suit your needs. The self-hosted web interface offers a visual and intuitive way to explore your gaming history.
 
@@ -39,7 +41,18 @@ Conquering it is an adventure in itself, not unlike building the monuments of ol
 
 ## Installation
 Instructions coming soon.  
-*(The application currently assumes a local SQL Server instance and API running on .NET 8.)*
+*(The application currently assumes a local SQL Server instance and an API running on .NET 8.)*
+
+## Roadmap
+- ✅ ~~Add, edit, and delete games~~
+- ✅ ~~Search and filter functionality~~
+- ⬜ Docker support
+- ⬜ Import functionality
+- ⬜ Manage archived games
+- ⬜ Settings page
+- ⬜ Improved interface with theme support
+- ⬜ Expanded search and filter options
+- ⬜ Export support
 
 ## Contributing
 Contributions are welcome!
@@ -48,4 +61,9 @@ Feel free to open an issue or submit a pull request for improvements, bug fixes,
 Frontend help (UI/UX, styling, and layout improvements) is especially appreciated.
 
 ## License
-License TBD
+This project is licensed under the **PolyForm Noncommercial License 1.0.0**.  
+You are free to use, modify, and share this software for **personal and noncommercial** purposes.  
+Commercial use is **not permitted** without prior written approval.
+
+For full license details, see the [LICENSE](./LICENSE) file or  
+[polyformproject.org/licenses/noncommercial/1.0.0](https://polyformproject.org/licenses/noncommercial/1.0.0/).
