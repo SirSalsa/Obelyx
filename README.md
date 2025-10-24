@@ -61,9 +61,6 @@ Feel free to open an issue or submit a pull request for improvements, bug fixes,
 Frontend help (UI/UX, styling, and layout improvements) is especially appreciated.
 
 ## License
-This project is licensed under the **PolyForm Noncommercial License 1.0.0**.  
-You are free to use, modify, and share this software for **personal and noncommercial** purposes.  
-Commercial use is **not permitted** without prior written approval.
+This project is open source and available under the [Apache License 2.0](LICENSE).
 
-For full license details, see the [LICENSE](./LICENSE) file or  
-[polyformproject.org/licenses/noncommercial/1.0.0](https://polyformproject.org/licenses/noncommercial/1.0.0/).
+You’re free to use, modify, and distribute this software, provided that you comply with the terms of the license.
