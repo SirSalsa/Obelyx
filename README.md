@@ -38,10 +38,50 @@ The name **Obelyx** comes from *Obelisk* — a monument that, much like your gam
 
 Conquering it is an adventure in itself, not unlike building the monuments of old. It takes patience, motivation, and the drive to overcome even the smallest challenges life throws your way.
 
-
 ## Installation
-Instructions coming soon.  
+Follow these steps to run **Obelyx** locally.
+
 *(The application currently assumes a local SQL Server instance and an API running on .NET 8.)*
+
+### 1. Prerequisites
+- .NET 8 SDK  
+- Node.js (v18 or later)  
+- SQL Server (local instance or Docker)  
+- Git
+
+### 2. Clone the Repository
+```
+git clone https://github.com/SirSalsa/Obelyx.git
+cd Obelyx
+```
+
+### 3. Configure the Database Connection
+Open `Obelyx.API/appsettings.json` and update the connection string if needed.
+```json
+"ConnectionStrings": {
+  "SqlServer": "Server=localhost;Database=GameBacklog;Trusted_Connection=True;TrustServerCertificate=True;"
+}
+```
+
+### 4. Run the API
+From the `Obelyx.API` folder:
+```
+dotnet run
+```
+The database is automatically created and migrated when you launch the API.
+
+Swagger docs will be available at `https://localhost:7125/swagger`.
+
+### 5. Run the Frontend
+From the `Obelyx.Frontend` folder:
+```
+npm install
+npm run dev
+```
+The frontend runs at `http://localhost:51564` (as configured in `Program.cs` and `vite.config.js`).
+
+### 6. Start Using Obelyx
+You can now start using the app in your browser and start adding games and update their data. No authentication required in this version.
 
 ## Roadmap
 - ✅ ~~Add, edit, and delete games~~
