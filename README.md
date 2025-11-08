@@ -1,7 +1,7 @@
 # Obelyx
 **Obelyx** is a self-hosted game backlog manager that helps users organize, track, and view their game collections.
 
-![Screenshot of Obelyx](Docs/screenshot.png)
+<video src="Docs/highlight.mp4" width="800" autoplay loop muted></video>
 
 ## Overview
 **Obelyx** is a locally hosted suite of tools designed to help users manage their game libraries and keep track of what they’re playing, finished, or planning to start, similar in spirit to *MyAnimeList* or *IMDb*, but focused on games.
